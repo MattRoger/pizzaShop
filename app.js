@@ -1,21 +1,60 @@
 const menu = document.querySelector(".menu-insert");
 const pizzaMenuButton = document.querySelector(".pizzaMenuButton");
 const appsMenuButton = document.querySelector(".appsMenuButton")
-
-const appetizers=[]
-
 const pizzaForm = document.createElement("form");
+const appForm = document.createElement("form")
+
+const appetizers=[ 
+  {
+  "id":1,
+  "name": "Garlic Knots",
+  "price":"4.99"
+},
+{
+  "id":2,
+  "name": "Bread Sticks",
+  "price":"3.99"
+}
+]
+
 const toppings = ["Pepperoni", "Sausage", "Olives", "Pineapple", "Bacon"];
+toppings.sort();
 
-
-
+// sets menus to display none
+pizzaForm.style.display="none";
+appForm.style.display="none"
 // menu buttons
 pizzaMenuButton.addEventListener("click", () => {
-  console.log("clicked");
-  // menu.removeChild(pizzaForm);
-  PizzaSize();
-});
-
+    pizzaForm.style.display="block";
+    appForm.style.display="none";
+  });
+appsMenuButton.addEventListener("click", () => { 
+    pizzaForm.style.display="none";
+    appForm.style.display="block";
+  });
+  
+  //appetizers
+const appetizersMenu=()=>{
+  for(let i = 0; i<appetizers.length; i++){
+    const div = document.createElement("div");
+    const h3 = document.createElement("h3");
+    h3.textContent=appetizers[i].name;
+    const p = document.createElement("p");
+    p.textContent="$" + appetizers[i].price;
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className="appCheckbox"
+    div.append(h3,p, checkbox);
+    appForm.append(div); 
+  }
+  const button = document.createElement("input");
+  button.type="submit";
+  button.textContent="Add to order";
+  button.id="appetizersSubmit" 
+  appForm.append(button); 
+  menu.append(appForm);
+}
+appetizersMenu()
 
 // pizza menu
 const PizzaSize = () => {
@@ -25,21 +64,21 @@ const PizzaSize = () => {
   small.name = "size";
   const smLabel = document.createElement("label");
   smLabel.textContent = `Small 10" $10.99`;
-
+  
   const med = document.createElement("input");
   med.type = "radio";
   med.value = 12.99;
   med.name = "size";
   const medLabel = document.createElement("label");
   medLabel.textContent = `Medium 14" $12.99`;
-
+  
   const lg = document.createElement("input");
   lg.type = "radio";
   lg.value = 14.99;
   lg.name = "size";
   const lgLabel = document.createElement("label");
   lgLabel.textContent = `Larger 16" $14.99`;
-
+  
   pizzaForm.append(small, smLabel, med, medLabel, lg, lgLabel);
   menu.append(pizzaForm);
   chooseToppings();
@@ -80,3 +119,4 @@ const specialDirections = () => {
   label.style.display = "block";
   pizzaForm.append(label, input);
 };
+PizzaSize();
