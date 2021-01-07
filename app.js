@@ -3,6 +3,7 @@ const pizzaMenuButton = document.querySelector(".pizzaMenuButton");
 const appsMenuButton = document.querySelector(".appsMenuButton")
 const pizzaForm = document.createElement("form");
 const appForm = document.createElement("form")
+const appSubmit=document.querySelector("#appetizersSubmit")
 
 const appetizers=[ 
   {
@@ -34,6 +35,9 @@ appsMenuButton.addEventListener("click", () => {
   });
   
   //appetizers
+  appForm.action="index.html";
+  appForm.method="post";
+
 const appetizersMenu=()=>{
   for(let i = 0; i<appetizers.length; i++){
     const div = document.createElement("div");
@@ -43,20 +47,40 @@ const appetizersMenu=()=>{
     p.textContent="$" + appetizers[i].price;
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className="appCheckbox"
+    checkbox.name="appCheckbox";
+    checkbox.className="appCheckbox";
+    checkbox.id=appetizers[i].name;
+    checkbox.value=appetizers[i].price;
     div.append(h3,p, checkbox);
     appForm.append(div); 
   }
-  const button = document.createElement("input");
-  button.type="submit";
-  button.textContent="Add to order";
-  button.id="appetizersSubmit" 
-  appForm.append(button); 
+  const input = document.createElement("input");
+  input.type="submit";
+  input.textContent="Add to order";
+  input.id="appetizersSubmit";
+  input.value="submit"; 
+  appForm.append(input); 
   menu.append(appForm);
 }
 appetizersMenu()
 
+appetizersSubmit.addEventListener("click",(e)=>{
+  let selectedApps=[];
+  const checkboxes=document.querySelectorAll("input[type='checkbox'].appCheckbox")
+  e.preventDefault();
+  for(checkbox of checkboxes){
+    if(checkbox.checked){
+      const orderedApp={name:checkbox.id, price:checkbox.value}
+      selectedApps.push(orderedApp);
+    }
+  }
+  console.log(selectedApps)
+} )
 // pizza menu
+pizzaForm.action="index.html";
+pizzaForm.method="post";
+
+
 const PizzaSize = () => {
   const small = document.createElement("input");
   small.type = "radio";
@@ -118,5 +142,16 @@ const specialDirections = () => {
   label.textContent = "Special Directions: ";
   label.style.display = "block";
   pizzaForm.append(label, input);
+  addPizzaSubmit();
 };
+const addPizzaSubmit=()=>{
+  const input = document.createElement("input");
+  input.type="submit";
+  input.value="submit";
+  input.textContent="Add to order";
+  input.id="pizzaSubmit";
+  input.style.display="block";
+  pizzaForm.append(input);
+}
 PizzaSize();
+
