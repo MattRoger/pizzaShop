@@ -5,6 +5,7 @@ const pizzaForm = document.createElement("form");
 const appForm = document.createElement("form");
 const appSubmit = document.querySelector("#appetizersSubmit");
 const modal = document.querySelector(".added-modal");
+const cartModal = document.querySelector(".cart-modal");
 
 let order = [];
 
@@ -76,7 +77,8 @@ appetizersSubmit.addEventListener("click", (e) => {
   e.preventDefault();
   for (checkbox of checkboxes) {
     if (checkbox.checked) {
-      const orderedApp = { name: checkbox.id, price: checkbox.value };
+      const price = parseFloat(checkbox.value);
+      const orderedApp = { name: checkbox.id, price: price };
       selectedApps.push(orderedApp);
       checkbox.checked = false;
     }
@@ -184,18 +186,16 @@ PizzaSize();
 
 pizzaSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  // let size;
-  // let basePrice;
   let toppings = [];
   let quantity = 1;
-  let pizzaOrder = {};
-  let notice=[]
+  let pizzaOrders = [];
+  let notice = [];
   const radios = document.querySelectorAll("input[type='radio']");
   for (radio of radios) {
     if (radio.checked) {
       size = radio.attr;
-      basePrice=radio.value;
-      basePrice=parseFloat(basePrice)
+      basePrice = radio.value;
+      basePrice = parseFloat(basePrice);
     }
   }
   const checkboxes = document.querySelectorAll(
@@ -209,13 +209,34 @@ pizzaSubmit.addEventListener("click", (e) => {
   }
   const quantitySelector = document.querySelector(".pizzaQuantity");
   quantity = quantitySelector.value;
+  quantity = parseInt(quantity);
   quantitySelector.value = 1;
 
   const specialDirectionsInput = document.querySelector(
     ".pizzaSpecialDirections"
   );
   const specialDirections = specialDirectionsInput.value;
-  pizzaOrder = {
+
+  let name = `${quantity}x ${size} pizza`;
+  if (toppings.length > 0) {
+    name += " with ";
+    for (i = 0; i < toppings.length; i++) {
+      if (i < toppings.length - 1) {
+        name += `${toppings[i]}, `;
+      } else {
+        name += `${toppings[i]}. `;
+      }
+    }
+  } else {
+    name += ".";
+  }
+
+  let toppingPrice = parseInt(toppings.length);
+  let price = (basePrice + toppingPrice) * quantity;
+
+  let pizzaOrder = {
+    name,
+    price,
     size,
     basePrice,
     toppings,
@@ -223,22 +244,19 @@ pizzaSubmit.addEventListener("click", (e) => {
     quantity,
     specialDirections,
   };
+  pizzaOrders.push(pizzaOrder);
+  order.push(pizzaOrders);
 
-  order.push(pizzaOrder);
-  console.log(pizzaOrder);
-  console.log(order);
-  let string =`${pizzaOrder.quantity}x ${pizzaOrder.size} `
-  if(pizzaOrder.toppings.length>0){
-    string += "with "
-    for(i=0;i<pizzaOrder.toppings.length;i++){
-      if(i<pizzaOrder.toppings.length-1){
-        string += `${pizzaOrder.toppings[i]},`;
-      }else{
-        string += `${pizzaOrder.toppings[i]}.`;
-      }
-    }
+  // creates string for alertNotice()
+  let string = name;
+  let specialString = "";
+  if (pizzaOrder.specialDirections != "") {
+    specialString += `Special Directions: ${pizzaOrder.specialDirections}.`;
   }
-console.log(string)
+  const total = `...$${price}`;
+  notice.push(string, specialString, total);
+
+  alertOrderWindow(notice);
   checkCart();
 });
 
@@ -246,7 +264,7 @@ const alertOrderWindow = (added) => {
   const xBtn = document.createElement("button");
   const checkoutBtn = document.createElement("button");
   const backBtn = document.createElement("button");
-  const div=document.createElement("div");
+  const div = document.createElement("div");
   xBtn.textContent = "x";
   xBtn.id = "close";
   checkoutBtn.textContent = "Place Order";
@@ -257,7 +275,6 @@ const alertOrderWindow = (added) => {
   backBtn.style.display = "inline";
   div.appendChild(xBtn);
   for (i = 0; i < added.length; i++) {
-    console.log(added[i]);
     const p = document.createElement("p");
     p.textContent = `${added[i]} \n`;
     div.appendChild(p);
@@ -272,10 +289,10 @@ const alertOrderWindow = (added) => {
   closeModal();
 };
 
-const closeModal=()=>{
+const closeModal = () => {
   const closeBtn = document.querySelector("#close");
-  const backBtn= document.querySelector("#back");
-  const checkoutBtn= document.querySelector("#checkout");
+  const backBtn = document.querySelector("#back");
+  const checkoutBtn = document.querySelector("#checkout");
 
   closeBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
@@ -285,11 +302,87 @@ const closeModal=()=>{
   });
   checkoutBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
+    shoppingCart();
   });
-}
+};
 
 const checkCart = () => {
   if (order.length > 0) {
-    console.log("order in cart");
+    // console.log("order in cart");
+    // console.log(order);
   }
 };
+
+const shoppingCart = () => {
+  const div = document.createElement("div");
+  const table=document.createElement("table");
+  const tableCaption=document.createElement("caption");
+  tableCaption.textContent="Your Order";
+  table.appendChild(tableCaption);
+  const tr1=document.createElement("tr");
+  const th1=document.createElement("th");
+  th1.textContent="Item";
+  const th2=document.createElement("th");
+  const th3=document.createElement("th");
+  th3.textContent="Price";
+  const th4=document.createElement("th");
+  th4.textContent="Remove"
+  tr1.append(th1, th2, th3, th4);
+
+  table.appendChild(tr1)
+ 
+  let subTotal = 0;
+  for (i = 0; i < order.length; i++) {
+    const orderI = order[i];
+    for (x = 0; x < orderI.length; x++) {
+      const orderX = orderI[x];
+      console.log(orderX.name);
+      console.log(orderX.price);
+      const tr=document.createElement("tr");
+      const tdName=document.createElement("td");
+      tdName.textContent=orderX.name;
+      const tdDots=document.createElement("td");
+      tdDots.textContent="....";
+      const tdPrice=document.createElement("td");
+      tdPrice.textContent=orderX.price;
+      const tdButton=document.createElement("td");
+      const button=document.createElement("button");
+      button.textContent="X";
+      button.className="removeButton";
+      tdButton.appendChild(button);
+      tr.append(tdName, tdDots, tdPrice, tdButton);
+      table.appendChild(tr);
+      if (orderX.price !== NaN) {
+        subTotal += orderX.price;
+      }
+    }
+  }
+  let total=subTotal*1.08;
+  total=total.toFixed(2);
+
+  const subTotalTr=document.createElement("tr");
+  const td1 = document.createElement("td");
+  td1.textContent="Subtotal";
+  td1.colSpan=2;
+  const td2 = document.createElement("td");
+  td2.textContent="...."
+  const td3 = document.createElement("td");
+  td3.textContent=subTotal;
+  subTotalTr.append(td1, td2, td3);
+
+  const totalTr=document.createElement("tr");
+  const td4 = document.createElement("td");
+  td4.textContent="Total";
+  td4.colSpan=2;
+  const td5 = document.createElement("td");
+  td5.textContent="...."
+  const td6 = document.createElement("td");
+  td6.textContent=total;
+  totalTr.append(td4, td5, td6);
+
+  table.append(subTotalTr, totalTr);
+  div.appendChild(table);
+  cartModal.appendChild(div);
+  console.log(subTotal);
+};
+
