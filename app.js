@@ -6,6 +6,7 @@ const appForm = document.createElement("form");
 const appSubmit = document.querySelector("#appetizersSubmit");
 const modal = document.querySelector(".added-modal");
 const cartModal = document.querySelector(".cart-modal");
+const tipModal = document.querySelector(".tip-modal");
 
 let order = [];
 
@@ -379,10 +380,36 @@ const shoppingCart = () => {
   const td6 = document.createElement("td");
   td6.textContent=total;
   totalTr.append(td4, td5, td6);
-
   table.append(subTotalTr, totalTr);
   div.appendChild(table);
+
+  const addMoreBtn=document.createElement("button");
+  addMoreBtn.textContent="Add More!"
+  addMoreBtn.addEventListener("click", ()=>{
+    cartModal.removeChild(cartModal.childNodes[0]);
+  })
+  const addTipButton=document.createElement("button");
+  addTipButton.textContent="Next"
+  addTipButton.addEventListener("click", ()=>{
+    cartModal.removeChild(cartModal.childNodes[0]);
+  })
+  div.append(addMoreBtn, addTipButton)
   cartModal.appendChild(div);
-  console.log(subTotal);
+
 };
 
+const tipScreen=()=>{
+  const div = document.createElement("div");
+  const p=document.createElement("p");
+  p.textContent="Add a Tip";
+  p.className="tipHeader";
+  const btn10=document.createElement("button");
+  btn10.textContent="10%";
+  const btn15=document.createElement("button");
+  btn15.textContent="15%";
+  const btn15=document.createElement("button");
+  btn15.textContent="20%";
+  const btnCustomSubmit=document.createElement("button");
+  btnCustomSubmit.textContent="Add Custom Tip";
+  
+}
