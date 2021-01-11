@@ -7,9 +7,11 @@ const appSubmit = document.querySelector("#appetizersSubmit");
 const modal = document.querySelector(".added-modal");
 const cartModal = document.querySelector(".cart-modal");
 const tipModal = document.querySelector(".tip-modal");
+const buttons = document.getElementsByTagName("BUTTON");
 
 let order = [];
-
+let total = 0;
+let tip = 1;
 const appetizers = [
   {
     id: 1,
@@ -316,22 +318,22 @@ const checkCart = () => {
 
 const shoppingCart = () => {
   const div = document.createElement("div");
-  const table=document.createElement("table");
-  const tableCaption=document.createElement("caption");
-  tableCaption.textContent="Your Order";
+  const table = document.createElement("table");
+  const tableCaption = document.createElement("caption");
+  tableCaption.textContent = "Your Order";
   table.appendChild(tableCaption);
-  const tr1=document.createElement("tr");
-  const th1=document.createElement("th");
-  th1.textContent="Item";
-  const th2=document.createElement("th");
-  const th3=document.createElement("th");
-  th3.textContent="Price";
-  const th4=document.createElement("th");
-  th4.textContent="Remove"
+  const tr1 = document.createElement("tr");
+  const th1 = document.createElement("th");
+  th1.textContent = "Item";
+  const th2 = document.createElement("th");
+  const th3 = document.createElement("th");
+  th3.textContent = "Price";
+  const th4 = document.createElement("th");
+  th4.textContent = "Remove";
   tr1.append(th1, th2, th3, th4);
 
-  table.appendChild(tr1)
- 
+  table.appendChild(tr1);
+
   let subTotal = 0;
   for (i = 0; i < order.length; i++) {
     const orderI = order[i];
@@ -339,17 +341,17 @@ const shoppingCart = () => {
       const orderX = orderI[x];
       console.log(orderX.name);
       console.log(orderX.price);
-      const tr=document.createElement("tr");
-      const tdName=document.createElement("td");
-      tdName.textContent=orderX.name;
-      const tdDots=document.createElement("td");
-      tdDots.textContent="....";
-      const tdPrice=document.createElement("td");
-      tdPrice.textContent=orderX.price;
-      const tdButton=document.createElement("td");
-      const button=document.createElement("button");
-      button.textContent="X";
-      button.className="removeButton";
+      const tr = document.createElement("tr");
+      const tdName = document.createElement("td");
+      tdName.textContent = orderX.name;
+      const tdDots = document.createElement("td");
+      tdDots.textContent = "....";
+      const tdPrice = document.createElement("td");
+      tdPrice.textContent = orderX.price;
+      const tdButton = document.createElement("td");
+      const button = document.createElement("button");
+      button.textContent = "X";
+      button.className = "removeButton";
       tdButton.appendChild(button);
       tr.append(tdName, tdDots, tdPrice, tdButton);
       table.appendChild(tr);
@@ -358,58 +360,117 @@ const shoppingCart = () => {
       }
     }
   }
-  let total=subTotal*1.08;
-  total=total.toFixed(2);
+  total = subTotal * 1.08;
+  total = total.toFixed(2);
 
-  const subTotalTr=document.createElement("tr");
+  const subTotalTr = document.createElement("tr");
   const td1 = document.createElement("td");
-  td1.textContent="Subtotal";
-  td1.colSpan=2;
+  td1.textContent = "Subtotal";
+  td1.colSpan = 2;
   const td2 = document.createElement("td");
-  td2.textContent="...."
+  td2.textContent = "....";
   const td3 = document.createElement("td");
-  td3.textContent=subTotal;
+  td3.textContent = subTotal;
   subTotalTr.append(td1, td2, td3);
 
-  const totalTr=document.createElement("tr");
+  const totalTr = document.createElement("tr");
   const td4 = document.createElement("td");
-  td4.textContent="Total";
-  td4.colSpan=2;
+  td4.textContent = "Total";
+  td4.colSpan = 2;
   const td5 = document.createElement("td");
-  td5.textContent="...."
+  td5.textContent = "....";
   const td6 = document.createElement("td");
-  td6.textContent=total;
+  td6.textContent = total;
   totalTr.append(td4, td5, td6);
   table.append(subTotalTr, totalTr);
   div.appendChild(table);
 
-  const addMoreBtn=document.createElement("button");
-  addMoreBtn.textContent="Add More!"
-  addMoreBtn.addEventListener("click", ()=>{
+  const addMoreBtn = document.createElement("button");
+  addMoreBtn.textContent = "Add More!";
+  addMoreBtn.addEventListener("click", () => {
     cartModal.removeChild(cartModal.childNodes[0]);
-  })
-  const addTipButton=document.createElement("button");
-  addTipButton.textContent="Next"
-  addTipButton.addEventListener("click", ()=>{
+  });
+  const addTipButton = document.createElement("button");
+  addTipButton.textContent = "Next";
+  addTipButton.addEventListener("click", () => {
     cartModal.removeChild(cartModal.childNodes[0]);
-  })
-  div.append(addMoreBtn, addTipButton)
+    tipScreen();
+  });
+  div.append(addMoreBtn, addTipButton);
   cartModal.appendChild(div);
-
 };
 
-const tipScreen=()=>{
+const tipScreen = () => {
   const div = document.createElement("div");
-  const p=document.createElement("p");
-  p.textContent="Add a Tip";
-  p.className="tipHeader";
-  const btn10=document.createElement("button");
-  btn10.textContent="10%";
-  const btn15=document.createElement("button");
-  btn15.textContent="15%";
-  const btn15=document.createElement("button");
-  btn15.textContent="20%";
-  const btnCustomSubmit=document.createElement("button");
-  btnCustomSubmit.textContent="Add Custom Tip";
-  
-}
+  const totalWTip = document.createElement("p");
+  totalWTip.textContent = `Your total is $${total}`;
+  totalWTip.id = "tippedAmount";
+  const p = document.createElement("p");
+  p.textContent = "Add a Tip";
+  p.className = "tipHeader";
+  const btn0 = document.createElement("button");
+  btn0.textContent = "No Tip";
+  btn0.value = 1;
+  btn0.className = "noTip";
+  const btn10 = document.createElement("button");
+  btn10.textContent = "10%";
+  btn10.value = 1.1;
+  btn10.className = "tip10";
+  const btn15 = document.createElement("button");
+  btn15.textContent = "15%";
+  btn15.value = 1.15;
+  btn15.className = "tip15";
+  const btn20 = document.createElement("button");
+  btn20.textContent = "20%";
+  btn20.value = 1.2;
+  btn20.className = "tip20";
+  const btnCustomSubmit = document.createElement("button");
+  btnCustomSubmit.textContent = "Add Custom Tip";
+  btnCustomSubmit.type = "submit";
+  btnCustomSubmit.className = "customTipSubmit";
+  const customTipInput = document.createElement("input");
+  customTipInput.type = "number";
+  customTipInput.name = "customTip";
+  div.append(
+    p,
+    btn0,
+    btn10,
+    btn15,
+    btn20,
+    customTipInput,
+    btnCustomSubmit,
+    totalWTip
+  );
+  tipModal.appendChild(div);
+  tipCalc();
+};
+
+const tipCalc = () => {
+  for (i = 0; i < buttons.length; i++) {
+    const tipMessage = document.getElementById("tippedAmount");
+    buttons[i].addEventListener("click", (e) => {
+      switch (e.target.className) {
+        case "noTip":
+          tip = e.target.value;
+          break;
+        case "tip10":
+          tip = e.target.value;
+          break;
+        case "tip15":
+          tip = e.target.value;
+          break;
+        case "tip20":
+          tip = e.target.value;
+          break;
+        case "customTipSubmit":
+          tip = e.target.value;
+          break;
+      }
+      let tipTotal = total * tip;
+      tipTotal= tipTotal.toFixed(2);
+      tipMessage.textContent = `Your total is $${tipTotal}`;
+      console.log(total);
+      console.log(tipMessage);
+    });
+  }
+};
