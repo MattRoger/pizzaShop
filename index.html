@@ -3,25 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style/style.css">
+    <link rel="stylesheet" href="./assets/style/reset.css">
+    <title>NY Pizzeria</title>
 </head>
 <body>
+    <!-- Opening div -->
     <header>
         <h1>N.Y. Pizzeria</h1>
-        <nav></nav>
+        <h2>World's Best Pizza</h2>
+        <p>257 23nd St, NYC</p>
+        <p><a href="tel:">201-293-7500</a></p>
     </header>
-    <section class="menu">
+
+    <!-- nav section -->
+    <nav>
+        <ul class="main-nav">
+            <li><button class="nav" id="menu-btn">Menu</button></li>
+            <li><button class="nav" id="about-btn">About US</button></li>
+            <li><button class="nav" id="contact-btn">Contact US</button></li>
+            <li><button class="nav" id="catering-btn">Catering</button></li>
+        </ul>
+    </nav>
+
+    <!-- menu section -->
+    <section id="menu">
         <h2>Menu</h2>
         <div>
             <button class="appsMenuButton">Appetizers</button>
             <button class="pizzaMenuButton">Pizza</button>
+            <button class="pizzaMenuButton">Entres</button>
+            <button class="pizzaMenuButton">Dessert</button>
         </div>
         <div class="menu-insert"></div>
     </section>
+
+    <!-- about section -->
+    <section id="about">
+        about section
+    </section>
+
+    <!-- contact section -->
+    <section id="contact">
+        contact section
+    </section>
+
+    <!-- catering section -->
+    <section id="catering">
+        catering section
+    </section>
+    
     <div class="added-modal"></div>
     <div class="cart-modal"></div>
     <div class="tip-modal"></div>
+
     <script src="app.js"></script>
+    <script src="nav.js"></script>
 </body>
 </html>

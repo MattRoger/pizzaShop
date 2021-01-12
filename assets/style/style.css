@@ -1,0 +1,27 @@
+body {
+  background-color: silver;
+  position: relative;
+}
+
+header,
+section {
+  height: 100vh;
+  width: 100vw;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+}
+nav li{
+    display:inline;
+}
+#menu,
+#about,
+#contact,
+#catering {
+  display: none;
+}
+td label {
+  display: block;
+}

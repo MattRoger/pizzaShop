@@ -309,6 +309,9 @@ const closeModal = () => {
   });
 };
 
+// Checkout code
+
+// checks if items in shopping cart.
 const checkCart = () => {
   if (order.length > 0) {
     // console.log("order in cart");
@@ -316,6 +319,7 @@ const checkCart = () => {
   }
 };
 
+// renders shopping cart
 const shoppingCart = () => {
   const div = document.createElement("div");
   const table = document.createElement("table");
@@ -333,7 +337,7 @@ const shoppingCart = () => {
   tr1.append(th1, th2, th3, th4);
 
   table.appendChild(tr1);
-
+// calculates subtotal
   let subTotal = 0;
   for (i = 0; i < order.length; i++) {
     const orderI = order[i];
@@ -360,6 +364,7 @@ const shoppingCart = () => {
       }
     }
   }
+  // calculates total with tax
   total = subTotal * 1.08;
   total = total.toFixed(2);
 
@@ -385,6 +390,7 @@ const shoppingCart = () => {
   table.append(subTotalTr, totalTr);
   div.appendChild(table);
 
+  // buttons to add more or proceed to next screen
   const addMoreBtn = document.createElement("button");
   addMoreBtn.textContent = "Add More!";
   addMoreBtn.addEventListener("click", () => {
@@ -400,6 +406,7 @@ const shoppingCart = () => {
   cartModal.appendChild(div);
 };
 
+// allows user to add tip
 const tipScreen = () => {
   const div = document.createElement("div");
   const totalWTip = document.createElement("p");
@@ -431,6 +438,8 @@ const tipScreen = () => {
   const customTipInput = document.createElement("input");
   customTipInput.type = "number";
   customTipInput.name = "customTip";
+  customTipInput.id = "customTip";
+  customTipInput.limit = 100;
   div.append(
     p,
     btn0,
@@ -443,11 +452,20 @@ const tipScreen = () => {
   );
   tipModal.appendChild(div);
   tipCalc();
+  next = document.createElement("button");
+  next.textContent = "Next";
+  div.appendChild(next);
+  next.addEventListener("click", () => {
+    tipModal.removeChild(div);
+    customerInfo();
+  });
 };
 
+// calculates total with tip
 const tipCalc = () => {
   for (i = 0; i < buttons.length; i++) {
     const tipMessage = document.getElementById("tippedAmount");
+    const customTip = document.getElementById("customTip");
     buttons[i].addEventListener("click", (e) => {
       switch (e.target.className) {
         case "noTip":
@@ -463,14 +481,71 @@ const tipCalc = () => {
           tip = e.target.value;
           break;
         case "customTipSubmit":
-          tip = e.target.value;
+          tip = `1.${customTip.value}`;
+          tip = parseFloat(tip);
           break;
       }
       let tipTotal = total * tip;
-      tipTotal= tipTotal.toFixed(2);
+      tipTotal = tipTotal.toFixed(2);
       tipMessage.textContent = `Your total is $${tipTotal}`;
-      console.log(total);
-      console.log(tipMessage);
     });
   }
+};
+
+// gets customer info
+const customerInfo = () => {
+  const form = document.createElement("form");
+  const fieldSetContact = document.createElement("fieldset");
+  const heading=document.createElement("legend");
+  heading.textContent="Your Contact Info: "
+  const fNameLabel = document.createElement("label");
+  fNameLabel.textContent = "First Name: ";
+  fNameLabel.for = "fName";
+  const fName = document.createElement("input");
+  fName.type = "text";
+  fName.id = "fName";
+  fName.name = "first_name";
+  const lNameLabel = document.createElement("label");
+  lNameLabel.textContent = "Last Name: ";
+  lNameLabel.for = "fName";
+  const lName = document.createElement("input");
+  lName.type = "text";
+  lName.id = "lName";
+  lName.name = "last";
+  const phoneLabel = document.createElement("label");
+  phoneLabel.textContent = "Phone Number: ";
+  phoneLabel.for = "phone";
+  const phone = document.createElement("input");
+  phone.type = "tel";
+  phone.id = "phone";
+  phone.name = "phone";
+  const emailLabel = document.createElement("label");
+  emailLabel.textContent = "E-Mail: ";
+  emailLabel.for = "email";
+  const email = document.createElement("input");
+  email.type = "email";
+  email.id = "email";
+  email.name = "e-mail";
+  fieldSetContact.append(
+    heading,
+    fNameLabel,
+    fName,
+    lNameLabel,
+    lName,
+    emailLabel,
+    email
+  );
+
+  const contactDiv=document.createElement("div");
+  const contactLabel=document.createElement("label");
+  contactLabel.textContent="Sign up for some great Deals";
+  const contactCheckbox=document.createElement("input");
+  contactCheckbox.type="checkbox";
+  contactCheckbox.checked=true;
+  contactDiv.append(contactLabel,contactCheckbox);
+  const submitBtn=document.createElement("button");
+  submitBtn.textContent="Place Order";
+  submitBtn.type="submit";
+  form.append(fieldSetContact,contactDiv, submitBtn);
+  tipModal.appendChild(form);
 };

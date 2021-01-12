@@ -6,10 +6,15 @@ A web app to order pizza, using vanilla js
 no
  ### To Do
  -[ ] create layout
+
  -[ ] create header
+
  -[ ] create menu layout
- -[ ] create shopping cart
- -[ ] create checkout
+
+ -[x] create shopping cart
+
+ -[x] create checkout
+ 
  -[ ] verify user is in delivery range
 
 ## Tech/framework used
