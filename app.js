@@ -1,12 +1,12 @@
 const menu = document.querySelector(".menu-insert");
 const pizzaMenuButton = document.querySelector(".pizzaMenuButton");
 const appsMenuButton = document.querySelector(".appsMenuButton");
+const entreeMenuButton = document.querySelector(".entreeMenuButton");
 const pizzaForm = document.createElement("form");
 const appForm = document.createElement("form");
+const entForm = document.createElement("form");
 const appSubmit = document.querySelector("#appetizersSubmit");
-const modal = document.querySelector(".added-modal");
-const cartModal = document.querySelector(".cart-modal");
-const tipModal = document.querySelector(".tip-modal");
+const modal = document.querySelector(".cart-modal");
 const buttons = document.getElementsByTagName("BUTTON");
 
 let order = [];
@@ -16,60 +16,160 @@ const appetizers = [
   {
     id: 1,
     name: "Garlic Knots",
-    price: 4.99,
+    description: "Four savory garlic knots, with our amazing marinara sauce",
+    price: "4.99",
   },
   {
     id: 2,
     name: "Bread Sticks",
-    price: 3.99,
+    description:
+      "Four of our pizza crust breadsticks, with our amazing marinara sauce",
+    price: "3.99",
+  },
+  {
+    id: 3,
+    name: "Hot Buffalo Wings",
+    description: "A Dozen of our hot buffalo wings!",
+    price: "8.99",
+  },
+  {
+    id: 4,
+    name: "Mild Buffalo Wings",
+    description: "A Dozen of our mild buffalo wings!",
+    price: "8.99",
+  },
+  {
+    id: 4,
+    name: "Sweet and Savory Buffalo Wings",
+    description: "A Dozen of our Sweet and Savory buffalo wings!",
+    price: "8.99",
+  },
+];
+const entrees = [
+  {
+    id: 1,
+    name: "Baked Ziti",
+    description: "A serving of our world famous baked ziti",
+    price: "9.99",
+  },
+  {
+    id: 2,
+    name: "House Salad",
+    description:
+      "Four of our pizza crust breadsticks, with our amazing marinara sauce",
+    price: "6.99",
+  },
+  {
+    id: 3,
+    name: "Cheesy Calzone",
+    description: "A Dozen of our hot buffalo wings!",
+    price: "8.99",
+  },
+  {
+    id: 4,
+    name: "Veggie Calzone",
+    description: "A Dozen of our mild buffalo wings!",
+    price: "8.99",
+  },
+  {
+    id: 4,
+    name: "Meaty Calzone",
+    description: "A Dozen of our Sweet and Savory buffalo wings!",
+    price: "8.99",
+  },
+  {
+    id: 5,
+    name: "Chicken Parm Sandwich",
+    description: "A Dozen of our Sweet and Savory buffalo wings!",
+    price: "9.99",
   },
 ];
 
-const toppings = ["Pepperoni", "Sausage", "Olives", "Pineapple", "Bacon"];
+const toppings = [
+  "Pepperoni",
+  "Sausage",
+  "Olives",
+  "Pineapple",
+  "Bacon",
+  "Mushrooms",
+  "Jalapeño",
+  "Onions",
+  "Extra Cheese",
+  "Green Peppers",
+  "Cherry Tomatoes",
+  "Spinach",
+  "BBQ Chicken",
+];
 toppings.sort();
 
 // sets menus to display none
 pizzaForm.style.display = "none";
 appForm.style.display = "none";
+entForm.style.display = "none";
 // menu buttons
 pizzaMenuButton.addEventListener("click", () => {
   pizzaForm.style.display = "block";
   appForm.style.display = "none";
+  entForm.style.display = "none";
 });
 appsMenuButton.addEventListener("click", () => {
-  pizzaForm.style.display = "none";
   appForm.style.display = "block";
+  pizzaForm.style.display = "none";
+  entForm.style.display = "none";
+});
+entreeMenuButton.addEventListener("click", () => {
+  entForm.style.display = "block";
+  pizzaForm.style.display = "none";
+  appForm.style.display = "none";
 });
 
-//appetizers
-appForm.action = "index.html";
-appForm.method = "post";
+// function creates the menu for ordering,
+// params are the menulist needed, and id as a string, and the form needed
 
-const appetizersMenu = () => {
-  for (let i = 0; i < appetizers.length; i++) {
+const renderMenu = (menuList, id, form) => {
+  for (let i = 0; i < menuList.length; i++) {
     const div = document.createElement("div");
+    div.className = "menu-item";
     const h3 = document.createElement("h3");
-    h3.textContent = appetizers[i].name;
-    const p = document.createElement("p");
-    p.textContent = "$" + appetizers[i].price;
+    h3.textContent = menuList[i].name;
+    const description = document.createElement("p");
+    description.textContent = menuList[i].description;
+    const price = document.createElement("p");
+    price.textContent = "$" + menuList[i].price;
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = "appCheckbox";
     checkbox.className = "appCheckbox";
-    checkbox.id = appetizers[i].name;
-    checkbox.value = appetizers[i].price;
-    div.append(h3, p, checkbox);
-    appForm.append(div);
+    checkbox.id = menuList[i].name;
+    checkbox.value = menuList[i].price;
+    const label = document.createElement("label");
+    label.textContent = "Add to order! ";
+    div.append(h3, description, price, checkbox, label);
+    form.append(div);
   }
   const input = document.createElement("input");
   input.type = "submit";
   input.textContent = "Add to order";
-  input.id = "appetizersSubmit";
+  input.id = id;
   input.value = "submit";
-  appForm.append(input);
-  menu.append(appForm);
+  form.append(input);
+  menu.append(form);
 };
-appetizersMenu();
+
+//appetizers
+appForm.action = "index.html";
+appForm.method = "post";
+appForm.className = "appetizer-form";
+
+renderMenu(appetizers,"appetizersSubmit",appForm);
+
+//entrees
+entForm.action = "index.html";
+entForm.method = "post";
+entForm.className = "appetizer-form";
+renderMenu(entrees,"entSubmit",entForm);
+
+console.log(entrees)
 
 appetizersSubmit.addEventListener("click", (e) => {
   let selectedApps = [];
@@ -100,8 +200,11 @@ appetizersSubmit.addEventListener("click", (e) => {
 // pizza menu
 pizzaForm.action = "index.html";
 pizzaForm.method = "post";
+pizzaForm.className = "menu-item";
 
 const PizzaSize = () => {
+  const h3 = document.createElement("h3");
+  h3.textContent = "Choose Size";
   const small = document.createElement("input");
   small.type = "radio";
   small.value = 10.99;
@@ -127,7 +230,7 @@ const PizzaSize = () => {
   const lgLabel = document.createElement("label");
   lgLabel.textContent = `Larger 16" $14.99`;
 
-  pizzaForm.append(small, smLabel, med, medLabel, lg, lgLabel);
+  pizzaForm.append(h3, small, smLabel, med, medLabel, lg, lgLabel);
   menu.append(pizzaForm);
   chooseToppings();
 };
@@ -137,7 +240,10 @@ const chooseToppings = () => {
   const title = document.createElement("h3");
   title.textContent = "Choose your Toppings. $1 each";
   div.append(title);
+  const toppingDiv = document.createElement("div");
+  toppingDiv.className = "topping-div";
   for (let i = 0; i < toppings.length; i++) {
+    const tDiv = document.createElement("div");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = "topping";
@@ -146,8 +252,10 @@ const chooseToppings = () => {
     checkbox.className = "toppings";
     const label = document.createElement("label");
     label.textContent = toppings[i];
-    div.append(checkbox, label);
+    tDiv.append(checkbox, label);
+    toppingDiv.appendChild(tDiv);
   }
+  div.appendChild(toppingDiv);
   pizzaForm.append(div);
   pizzaQuantity();
 };
@@ -268,6 +376,7 @@ const alertOrderWindow = (added) => {
   const checkoutBtn = document.createElement("button");
   const backBtn = document.createElement("button");
   const div = document.createElement("div");
+  div.className = "checkout-div";
   xBtn.textContent = "x";
   xBtn.id = "close";
   checkoutBtn.textContent = "Place Order";
@@ -289,6 +398,7 @@ const alertOrderWindow = (added) => {
   div.append(backBtn, checkoutBtn);
   div.appendChild(btnDiv);
   modal.appendChild(div);
+  modal.style.display = "block";
   closeModal();
 };
 
@@ -299,9 +409,11 @@ const closeModal = () => {
 
   closeBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
+    modal.style.display = "none";
   });
   backBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
+    modal.style.display = "none";
   });
   checkoutBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
@@ -322,6 +434,7 @@ const checkCart = () => {
 // renders shopping cart
 const shoppingCart = () => {
   const div = document.createElement("div");
+  div.className = "checkout-div";
   const table = document.createElement("table");
   const tableCaption = document.createElement("caption");
   tableCaption.textContent = "Your Order";
@@ -337,7 +450,7 @@ const shoppingCart = () => {
   tr1.append(th1, th2, th3, th4);
 
   table.appendChild(tr1);
-// calculates subtotal
+  // calculates subtotal
   let subTotal = 0;
   for (i = 0; i < order.length; i++) {
     const orderI = order[i];
@@ -394,27 +507,29 @@ const shoppingCart = () => {
   const addMoreBtn = document.createElement("button");
   addMoreBtn.textContent = "Add More!";
   addMoreBtn.addEventListener("click", () => {
-    cartModal.removeChild(cartModal.childNodes[0]);
+    modal.removeChild(modal.childNodes[0]);
+    modal.style.display = "none";
   });
   const addTipButton = document.createElement("button");
   addTipButton.textContent = "Next";
   addTipButton.addEventListener("click", () => {
-    cartModal.removeChild(cartModal.childNodes[0]);
+    modal.removeChild(modal.childNodes[0]);
     tipScreen();
   });
   div.append(addMoreBtn, addTipButton);
-  cartModal.appendChild(div);
+  modal.appendChild(div);
 };
 
 // allows user to add tip
 const tipScreen = () => {
   const div = document.createElement("div");
+  div.className = "checkout-div";
   const totalWTip = document.createElement("p");
   totalWTip.textContent = `Your total is $${total}`;
   totalWTip.id = "tippedAmount";
-  const p = document.createElement("p");
-  p.textContent = "Add a Tip";
-  p.className = "tipHeader";
+  const h3 = document.createElement("h3");
+  h3.textContent = "Add a Tip";
+  h3.className = "tipHeader";
   const btn0 = document.createElement("button");
   btn0.textContent = "No Tip";
   btn0.value = 1;
@@ -431,6 +546,7 @@ const tipScreen = () => {
   btn20.textContent = "20%";
   btn20.value = 1.2;
   btn20.className = "tip20";
+  const custDiv = document.createElement("div");
   const btnCustomSubmit = document.createElement("button");
   btnCustomSubmit.textContent = "Add Custom Tip";
   btnCustomSubmit.type = "submit";
@@ -440,23 +556,15 @@ const tipScreen = () => {
   customTipInput.name = "customTip";
   customTipInput.id = "customTip";
   customTipInput.limit = 100;
-  div.append(
-    p,
-    btn0,
-    btn10,
-    btn15,
-    btn20,
-    customTipInput,
-    btnCustomSubmit,
-    totalWTip
-  );
-  tipModal.appendChild(div);
+  custDiv.append(customTipInput, btnCustomSubmit);
+  div.append(h3, btn0, btn10, btn15, btn20, custDiv, totalWTip);
+  modal.appendChild(div);
   tipCalc();
   next = document.createElement("button");
   next.textContent = "Next";
   div.appendChild(next);
   next.addEventListener("click", () => {
-    tipModal.removeChild(div);
+    modal.removeChild(div);
     customerInfo();
   });
 };
@@ -495,9 +603,10 @@ const tipCalc = () => {
 // gets customer info
 const customerInfo = () => {
   const form = document.createElement("form");
+  form.className = "checkout-div";
   const fieldSetContact = document.createElement("fieldset");
-  const heading=document.createElement("legend");
-  heading.textContent="Your Contact Info: "
+  const heading = document.createElement("legend");
+  heading.textContent = "Your Contact Info: ";
   const fNameLabel = document.createElement("label");
   fNameLabel.textContent = "First Name: ";
   fNameLabel.for = "fName";
@@ -536,16 +645,16 @@ const customerInfo = () => {
     email
   );
 
-  const contactDiv=document.createElement("div");
-  const contactLabel=document.createElement("label");
-  contactLabel.textContent="Sign up for some great Deals";
-  const contactCheckbox=document.createElement("input");
-  contactCheckbox.type="checkbox";
-  contactCheckbox.checked=true;
-  contactDiv.append(contactLabel,contactCheckbox);
-  const submitBtn=document.createElement("button");
-  submitBtn.textContent="Place Order";
-  submitBtn.type="submit";
-  form.append(fieldSetContact,contactDiv, submitBtn);
-  tipModal.appendChild(form);
+  const contactDiv = document.createElement("div");
+  const contactLabel = document.createElement("label");
+  contactLabel.textContent = "Sign up for some great Deals";
+  const contactCheckbox = document.createElement("input");
+  contactCheckbox.type = "checkbox";
+  contactCheckbox.checked = true;
+  contactDiv.append(contactLabel, contactCheckbox);
+  const submitBtn = document.createElement("button");
+  submitBtn.textContent = "Place Order";
+  submitBtn.type = "submit";
+  form.append(fieldSetContact, contactDiv, submitBtn);
+  modal.appendChild(form);
 };

@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style/style.css">
-    <link rel="stylesheet" href="./assets/style/reset.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/style/reset.css" />
+    <link rel="stylesheet" href="./assets/style/style.css" />
     <title>NY Pizzeria</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Opening div -->
     <header>
+      <div class="intro header-div">
         <h1>N.Y. Pizzeria</h1>
         <h2>World's Best Pizza</h2>
-        <p>257 23nd St, NYC</p>
-        <p><a href="tel:">201-293-7500</a></p>
+      </div>
+      <div class="loc-phone">
+        <p class="location header-div">257 23nd St, NYC</p>
+        <p><a class="phone header-div" href="tel: ">201-293-7500</a></p>
+      </div>
     </header>
 
     <!-- nav section -->
     <nav>
-        <ul class="main-nav">
-            <li><button class="nav" id="menu-btn">Menu</button></li>
-            <li><button class="nav" id="about-btn">About US</button></li>
-            <li><button class="nav" id="contact-btn">Contact US</button></li>
-            <li><button class="nav" id="catering-btn">Catering</button></li>
-        </ul>
+      <ul class="main-nav nav">
+        <li class="nav" id="menu-btn">Menu</li>
+        <li class="nav" id="about-btn">About US</li>
+        <li class="nav" id="contact-btn">Contact US></li>
+        <li class="nav" id="catering-btn">Catering</li>
+      </ul>
     </nav>
 
     <!-- menu section -->
     <section id="menu">
-        <h2>Menu</h2>
-        <div>
-            <button class="appsMenuButton">Appetizers</button>
-            <button class="pizzaMenuButton">Pizza</button>
-            <button class="pizzaMenuButton">Entres</button>
-            <button class="pizzaMenuButton">Dessert</button>
-        </div>
-        <div class="menu-insert"></div>
+      <h2>menu</h2>
+      <ul class="menu-nav nav">
+        <li class="appsMenuButton">Appetizers</li>
+        <li class="pizzaMenuButton">Pizzas</li>
+        <li class="entreeMenuButton">Entrees</li>
+        <li>Desserts</li>
+      </ul>
+      <h3>Menu</h3>
+      <div class="menu-insert"></div>
     </section>
 
     <!-- about section -->
-    <section id="about">
-        about section
-    </section>
+    <section id="about">about section</section>
 
     <!-- contact section -->
-    <section id="contact">
-        contact section
-    </section>
+    <section id="contact">contact section</section>
 
     <!-- catering section -->
-    <section id="catering">
-        catering section
-    </section>
-    
-    <div class="added-modal"></div>
+    <section id="catering">catering section</section>
+
     <div class="cart-modal"></div>
-    <div class="tip-modal"></div>
 
     <script src="app.js"></script>
     <script src="nav.js"></script>
-</body>
+    <script src="./assets/style/style.js"></script>
+  </body>
 </html>

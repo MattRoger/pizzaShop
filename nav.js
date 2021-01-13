@@ -1,4 +1,4 @@
-const navButtons = document.querySelectorAll("button.nav");
+const navButtons = document.querySelectorAll("li.nav");
 const header = document.querySelector("header");
 const menuSection = document.getElementById("menu");
 const aboutSection = document.getElementById("about");

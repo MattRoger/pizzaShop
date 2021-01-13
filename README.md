@@ -17,6 +17,13 @@ no
  
  -[ ] verify user is in delivery range
 
+ -[ ] minor fixes need
+
+ **-[ ] in main links, US is capitalized, one has a >
+ **-[ ] pizza size say larger pizza instead of large
+ **-[ ] pizza price is not rounding to two decimals
+ **-[ ] subtotal price is not rounding to two decimals
+
 ## Tech/framework used
 
 ## Features
