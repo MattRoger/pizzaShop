@@ -2,10 +2,12 @@ const menu = document.querySelector(".menu-insert");
 const pizzaMenuButton = document.querySelector(".pizzaMenuButton");
 const appsMenuButton = document.querySelector(".appsMenuButton");
 const entreeMenuButton = document.querySelector(".entreeMenuButton");
+const dessertMenuButton = document.querySelector(".dessertMenuButton");
 const pizzaForm = document.createElement("form");
 const appForm = document.createElement("form");
 const entForm = document.createElement("form");
-const appSubmit = document.querySelector("#appetizersSubmit");
+const dessertForm = document.createElement("form");
+// const appSubmit = document.querySelector("#appetizersSubmit");
 const modal = document.querySelector(".cart-modal");
 const buttons = document.getElementsByTagName("BUTTON");
 
@@ -84,6 +86,33 @@ const entrees = [
     price: "9.99",
   },
 ];
+const desserts = [
+  {
+    id: 1,
+    name: "Brownies",
+    description: "A double chocolate brownie",
+    price: "4.99",
+  },
+  {
+    id: 2,
+    name: "Fried Zeppoles",
+    description:
+      "A dozen fried zeppoles with powdered sugar",
+    price: "6.99",
+  },
+  {
+    id: 3,
+    name: "Cheese cake",
+    description: "A Slice of N.Y. Cheesecake",
+    price: "8.99",
+  },
+  {
+    id: 4,
+    name: "Doughnut sticks",
+    description: "A Dozen doughnut sticks with raspberry sauce",
+    price: "6.99",
+  }
+];
 
 const toppings = [
   "Pepperoni",
@@ -106,21 +135,31 @@ toppings.sort();
 pizzaForm.style.display = "none";
 appForm.style.display = "none";
 entForm.style.display = "none";
+dessertForm.style.display = "none";
 // menu buttons
 pizzaMenuButton.addEventListener("click", () => {
   pizzaForm.style.display = "block";
   appForm.style.display = "none";
   entForm.style.display = "none";
+  dessertForm.style.display = "none";
 });
 appsMenuButton.addEventListener("click", () => {
   appForm.style.display = "block";
   pizzaForm.style.display = "none";
   entForm.style.display = "none";
+  dessertForm.style.display = "none";
 });
 entreeMenuButton.addEventListener("click", () => {
   entForm.style.display = "block";
   pizzaForm.style.display = "none";
   appForm.style.display = "none";
+  dessertForm.style.display = "none";
+});
+dessertMenuButton.addEventListener("click", () => {
+  dessertForm.style.display = "block";
+  pizzaForm.style.display = "none";
+  appForm.style.display = "none";
+  entForm.style.display = "none";
 });
 
 // function creates the menu for ordering,
@@ -151,6 +190,7 @@ const renderMenu = (menuList, id, form) => {
   input.type = "submit";
   input.textContent = "Add to order";
   input.id = id;
+  input.className="addToCart"
   input.value = "submit";
   form.append(input);
   menu.append(form);
@@ -166,11 +206,16 @@ renderMenu(appetizers,"appetizersSubmit",appForm);
 //entrees
 entForm.action = "index.html";
 entForm.method = "post";
-entForm.className = "appetizer-form";
+entForm.className = "ent-form";
 renderMenu(entrees,"entSubmit",entForm);
 
-console.log(entrees)
+//dessert
+dessertForm.action = "index.html";
+dessertForm.method = "post";
+dessertForm.className = "desserts-form";
+renderMenu(desserts,"dessertSubmit",dessertForm);
 
+// cart submits, should be DRY
 appetizersSubmit.addEventListener("click", (e) => {
   let selectedApps = [];
   let notice = [];
@@ -186,13 +231,57 @@ appetizersSubmit.addEventListener("click", (e) => {
       checkbox.checked = false;
     }
   }
-  console.log(selectedApps);
   order.push(selectedApps);
   for (i = 0; i < selectedApps.length; i++) {
-    const string = `${selectedApps[i].name}...${selectedApps[i].price}`;
+    const string = `${selectedApps[i].name}...$${selectedApps[i].price}`;
     notice.push(string);
   }
-  console.log(notice);
+  alertOrderWindow(notice);
+  checkCart();
+});
+entSubmit.addEventListener("click", (e) => {
+  let selectedApps = [];
+  let notice = [];
+  const checkboxes = document.querySelectorAll(
+    "input[type='checkbox'].appCheckbox"
+  );
+  e.preventDefault();
+  for (checkbox of checkboxes) {
+    if (checkbox.checked) {
+      const price = parseFloat(checkbox.value);
+      const orderedApp = { name: checkbox.id, price: price };
+      selectedApps.push(orderedApp);
+      checkbox.checked = false;
+    }
+  }
+  order.push(selectedApps);
+  for (i = 0; i < selectedApps.length; i++) {
+    const string = `${selectedApps[i].name}...$${selectedApps[i].price}`;
+    notice.push(string);
+  }
+  alertOrderWindow(notice);
+  checkCart();
+});
+dessertSubmit.addEventListener("click", (e) => {
+  let selectedApps = [];
+  let notice = [];
+  const checkboxes = document.querySelectorAll(
+    "input[type='checkbox'].appCheckbox"
+  );
+  e.preventDefault();
+  for (checkbox of checkboxes) {
+    if (checkbox.checked) {
+      const price = parseFloat(checkbox.value);
+      const orderedApp = { name: checkbox.id, price: price };
+      selectedApps.push(orderedApp);
+      checkbox.checked = false;
+    }
+  }
+  order.push(selectedApps);
+  for (i = 0; i < selectedApps.length; i++) {
+    const string = `${selectedApps[i].name}...$${selectedApps[i].price}`;
+    notice.push(string);
+  }
   alertOrderWindow(notice);
   checkCart();
 });
