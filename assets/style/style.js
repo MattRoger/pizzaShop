@@ -17,7 +17,6 @@ const textFont = `'Amatic SC', cursive;`;
 for (i = 0; i < navLinks.length; i++) {
   navLinks[i].style.color = light;
   navLinks[i].style.backgroundColor = dark;
-  navLinks[i].style.fontSize = "170%";
 }
 
 // menu items

@@ -22,17 +22,17 @@ p,
 td,
 th,
 label {
+  font-size: 2rem;
   font-family: "Amatic SC", cursive;
   color: #f8faf0;
-  font-size: 2rem;
 }
-
+input[type="submit"],
 button {
+  font-size: 2rem;
   color: #f8faf0;
-  background-color: #534d56;
+  background-color: #534d5600;
   border-color: #f8faf0;
   font-family: "East Sea Dokdo", cursive;
-  font-size: 2rem;
 }
 
 header,
@@ -44,51 +44,39 @@ section,
 header {
   background-image: url("../images/header-image.jpg");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   padding-top: 100px;
+  height: 100vh;
+  overflow: hidden;
 }
 h1 {
-  font-size: 6rem;
+  font-size: 3rem;
   padding-bottom: 2rem;
 }
 h2 {
-  font-size: 3.5rem;
+  font-size: 2.7rem;
 }
-h3{
+h3 {
   font-size: 3rem;
+}
+h4 {
+  font-size: 2.65rem;
+}
+@media only screen and (min-width: 385px) {
+  h1 {
+    font-size: 3.55rem;
+    padding-bottom: 2rem;
+  }
+  h2 {
+    font-size: 3.25rem;
+  }
 }
 .header-div {
   background-color: rgba(245, 245, 245, 0.671);
   border: 4px solid #40750a;
+  box-sizing: border-box;
 }
-.intro {
-  padding-top: 3rem;
-  height: 30vh;
-  width: 60vw;
-  margin: auto;
-}
-
-.location,
-.phone {
-  width: 30vw;
-  text-align: center;
-  padding: 2rem 3rem;
-  color: #12130f;
-  font-weight: 600;
-}
-.loc-phone {
-  margin: auto;
-  width: 60vw;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10vh;
-  align-items: center;
-}
-.loc-phone p {
-  display: inline;
-  width: auto;
-}
-
 nav {
   position: fixed;
   background-color: #12130f;
@@ -98,84 +86,93 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-.nav li {
-  display: inline;
-  justify-content: space-evenly;
   font-family: "East Sea Dokdo", cursive;
+  display: inline;
 }
+.main-nav,
+.menu-nav {
+  font-size: 1.75rem;
+  background-color: #12130f;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.intro {
+  padding-top: 3rem;
+  height: 40vh;
+  width: 80vw;
+  margin: 5vh auto 0 auto;
+}
+
+.location,
+.phone {
+  text-align: center;
+  padding: 1rem;
+  color: #12130f;
+  font-weight: 600;
+  display: block;
+  width: 100%;
+  margin-bottom: 2vh;
+}
+.loc-phone {
+  margin: 5vh auto;
+  width: 80vw;
+}
+
 #menu,
 #about,
 #contact,
 #catering,
 .cart-modal {
   display: none;
-  background-image: url("../images/slate.webp");
+  background-image: url("../images/chalkbackground.jpg");
   background-color: #534d56;
+  background-size: contain;
 }
 
-.menu-nav {
-  margin-top: 1rem;
-  background-color: #12130f;
+.menu-insert {
   padding-top: 1rem;
   padding-bottom: 1rem;
-  display: flex;
-  /* justify-content: center; */
+}
+input[type="radio"],
+form input[type="checkbox"] {
+  padding: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-td label {
-  display: block;
-}
-.menu-insert {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.appetizer-form {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 65%;
-  padding: 1rem;
-}
 .menu-item {
-  width: 70%;
+  width: 82vw;
   padding: 1rem;
   margin: 1rem auto;
 }
-
+/* 
 .menu-item label,
 .menu-item p {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 .menu-item label {
   padding-right: 2rem;
   padding-left: 0.5rem;
   padding-top: 1.25rem;
-}
-input[type="radio"] {
-  padding: 2rem;
-}
+} */
 
-.topping-div {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-items: center;
+.size-div {
+  padding-bottom: 1rem;
 }
-.topping-div input {
-  width: 1.5rem;
-  height: 1.5rem;
+.topping-div div {
+  padding-bottom: 0.75rem;
 }
 
 .cart-modal {
-  position: fixed;
-  top: 0;
   color: #f8faf0;
 }
 .checkout-div {
-  margin: 3rem auto;
+  margin: 1.25rem auto;
   border: 0.25rem solid #f8faf0;
-  padding: 3rem;
+  padding: 1.5rem;
   width: 60%;
 }
 .checkout-div #close {
@@ -189,29 +186,234 @@ input[type="radio"] {
 .checkout-div h3 {
   padding-bottom: 1rem;
 }
+input[type="submit"] {
+  margin: 0.5rem;
+}
+
+#back,
+#checkout {
+  width: 90%;
+  margin: 0.5rem;
+}
 
 caption,
 legend {
   font-size: 4rem;
   margin-bottom: 2rem;
 }
-tr{
+tr {
   text-align: right;
 }
-th{
- height:75px;
- padding-left:50px;
+th {
+  height: 75px;
+  padding-left: 10px;
 }
-td{
- height:50px;
+td {
+  height: 50px;
 }
-td button{
- max-height: 2.5rem;
+td button {
+  max-height: 2.5rem;
 }
-#customTip{
- height: 2rem;
-  width:5rem;
+
+.cart-btn {
+  margin: 0.5rem;
 }
-.customTipSubmit{
-  margin:1rem;
+
+#customTip {
+  height: 3rem;
+  width: 4rem;
+}
+.customTipSubmit {
+  margin: auto;
+}
+.customTipDiv {
+  display: flex;
+  align-items: center;
+}
+
+.noTip,
+.tip10,
+.tip15,
+.tip20,
+.customTipSubmit {
+  font-size: 1.5rem;
+  margin-bottom: 0 1rem 0;
+}
+@media only screen and (min-width: 385px) {
+  .noTip,
+  .tip10,
+  .tip15,
+  .tip20 {
+    font-size: 1.85rem;
+  }
+}
+
+fieldset label {
+  display: block;
+}
+fieldset input {
+  padding-bottom: 0.5rem;
+}
+
+.email-list {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+/*  for ipad */
+@media only screen and (min-width: 780px) {
+  h1 {
+    font-size: 8.5rem;
+  }
+  h2 {
+    font-size: 7.5rem;
+  }
+  h3 {
+    font-size: 5rem;
+  }
+  h4 {
+    font-size: 4rem;
+  }
+  p,
+  td,
+  th,
+  label {
+    font-size: 3rem;
+  }
+  input[type="submit"],
+  button {
+    font-size: 4rem;
+  }
+  .main-nav,
+  .menu-nav {
+    font-size: 4rem;
+  }
+  .intro {
+    margin: 8vh auto 0 auto;
+  }
+  .topping-div {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .topping-div div {
+    margin: 0.75rem;
+  }
+  input[type="radio"],
+  form input[type="checkbox"] {
+    margin: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .pizzaQuantity {
+    height: 3rem;
+    font-size: 3rem;
+    width: 80%;
+  }
+  .pizzaSpecialDirections {
+    font-size: 3rem;
+    height: 6rem;
+    width: 80%;
+  }
+  .addToCart,
+  input[type="submit"] {
+    display: block;
+    margin: 1rem auto;
+  }
+  .checkout-div {
+    width: 80%;
+  }
+  caption,
+  legend {
+    font-size: 6rem;
+  }
+  table {
+    width: 85%;
+  }
+  td button {
+    max-height: 5rem;
+  }
+  .cart-btn {
+    margin: 0.5rem;
+    width: 45%;
+  }
+  .noTip,
+  .tip10,
+  .tip15,
+  .tip20,
+  .customTipSubmit {
+    font-size: 3.5rem;
+    margin-bottom: 0 1rem 0;
+  }
+  #customTip {
+    height: 5rem;
+    width: 8rem;
+  }
+  .customTipSubmit {
+    margin: auto;
+  }
+  .customTipDiv {
+    display: block;
+  }
+  #fName,
+  #lName,
+  #email {
+    font-size: 3rem;
+    height: 3rem;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  h1 {
+    font-size: 6.5rem;
+  }
+  h2 {
+    font-size: 5.5rem;
+  }
+  h3 {
+    font-size: 4rem;
+  }
+  p,
+  td,
+  th,
+  label {
+    font-size: 1.85rem;
+  }
+  .intro,
+  .loc-phone {
+    width: 60vw;
+  }
+  .loc-phone {
+    display: flex;
+    justify-content: space-between;
+  }
+  .location,
+  .phone {
+    width: 20vw;
+  }
+  #menu,
+  #about,
+  #contact,
+  #catering,
+  .cart-modal {
+    padding-top: 25vh;
+    background-size: 100vw;
+    background-repeat: repeat-y;
+  }
+  .section-head {
+    text-align: center;
+    font-size: 6rem;
+  }
+  input[type="radio"],
+  form input[type="checkbox"] {
+    margin: 0.5rem;
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+  /* .pizzaSpecialDirections {
+    font-size: 2rem;
+    height: 18rem;
+    width: 80%;
+  } */
 }

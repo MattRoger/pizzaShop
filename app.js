@@ -1,3 +1,4 @@
+const mainMenu = document.querySelector("#menu");
 const menu = document.querySelector(".menu-insert");
 const pizzaMenuButton = document.querySelector(".pizzaMenuButton");
 const appsMenuButton = document.querySelector(".appsMenuButton");
@@ -96,8 +97,7 @@ const desserts = [
   {
     id: 2,
     name: "Fried Zeppoles",
-    description:
-      "A dozen fried zeppoles with powdered sugar",
+    description: "A dozen fried zeppoles with powdered sugar",
     price: "6.99",
   },
   {
@@ -111,7 +111,7 @@ const desserts = [
     name: "Doughnut sticks",
     description: "A Dozen doughnut sticks with raspberry sauce",
     price: "6.99",
-  }
+  },
 ];
 
 const toppings = [
@@ -190,7 +190,7 @@ const renderMenu = (menuList, id, form) => {
   input.type = "submit";
   input.textContent = "Add to order";
   input.id = id;
-  input.className="addToCart"
+  input.className = "addToCart";
   input.value = "submit";
   form.append(input);
   menu.append(form);
@@ -201,74 +201,46 @@ appForm.action = "index.html";
 appForm.method = "post";
 appForm.className = "appetizer-form";
 
-renderMenu(appetizers,"appetizersSubmit",appForm);
+renderMenu(appetizers, "appetizersSubmit", appForm);
 
 //entrees
 entForm.action = "index.html";
 entForm.method = "post";
 entForm.className = "ent-form";
-renderMenu(entrees,"entSubmit",entForm);
+renderMenu(entrees, "entSubmit", entForm);
 
 //dessert
 dessertForm.action = "index.html";
 dessertForm.method = "post";
 dessertForm.className = "desserts-form";
-renderMenu(desserts,"dessertSubmit",dessertForm);
+renderMenu(desserts, "dessertSubmit", dessertForm);
 
 // cart submits, should be DRY
 appetizersSubmit.addEventListener("click", (e) => {
-  let selectedApps = [];
-  let notice = [];
-  const checkboxes = document.querySelectorAll(
-    "input[type='checkbox'].appCheckbox"
-  );
   e.preventDefault();
-  for (checkbox of checkboxes) {
-    if (checkbox.checked) {
-      const price = parseFloat(checkbox.value);
-      const orderedApp = { name: checkbox.id, price: price };
-      selectedApps.push(orderedApp);
-      checkbox.checked = false;
-    }
-  }
-  order.push(selectedApps);
-  for (i = 0; i < selectedApps.length; i++) {
-    const string = `${selectedApps[i].name}...$${selectedApps[i].price}`;
-    notice.push(string);
-  }
-  alertOrderWindow(notice);
-  checkCart();
+  addToOrder()
 });
+
 entSubmit.addEventListener("click", (e) => {
-  let selectedApps = [];
-  let notice = [];
-  const checkboxes = document.querySelectorAll(
-    "input[type='checkbox'].appCheckbox"
-  );
   e.preventDefault();
-  for (checkbox of checkboxes) {
-    if (checkbox.checked) {
-      const price = parseFloat(checkbox.value);
-      const orderedApp = { name: checkbox.id, price: price };
-      selectedApps.push(orderedApp);
-      checkbox.checked = false;
-    }
-  }
-  order.push(selectedApps);
-  for (i = 0; i < selectedApps.length; i++) {
-    const string = `${selectedApps[i].name}...$${selectedApps[i].price}`;
-    notice.push(string);
-  }
-  alertOrderWindow(notice);
-  checkCart();
-});
+  addToOrder()
+})
 dessertSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  addToOrder()
+})
+
+const addToOrder=()=>{
+  mainMenu.style.display = "none";
+  dessertForm.style.display = "none";
+  pizzaForm.style.display = "none";
+  appForm.style.display = "none";
+  entForm.style.display = "none";
   let selectedApps = [];
   let notice = [];
   const checkboxes = document.querySelectorAll(
     "input[type='checkbox'].appCheckbox"
   );
-  e.preventDefault();
   for (checkbox of checkboxes) {
     if (checkbox.checked) {
       const price = parseFloat(checkbox.value);
@@ -284,7 +256,8 @@ dessertSubmit.addEventListener("click", (e) => {
   }
   alertOrderWindow(notice);
   checkCart();
-});
+}
+
 
 // pizza menu
 pizzaForm.action = "index.html";
@@ -295,6 +268,8 @@ const PizzaSize = () => {
   const h3 = document.createElement("h3");
   h3.textContent = "Choose Size";
   const small = document.createElement("input");
+  const smDiv = document.createElement("div");
+  smDiv.className = "size-div";
   small.type = "radio";
   small.value = 10.99;
   small.name = "size";
@@ -302,24 +277,30 @@ const PizzaSize = () => {
   small.checked = true;
   const smLabel = document.createElement("label");
   smLabel.textContent = `Small 10" $10.99`;
+  smDiv.append(small, smLabel);
 
   const med = document.createElement("input");
+  const mdDiv = document.createElement("div");
+  mdDiv.className = "size-div";
   med.type = "radio";
   med.value = 12.99;
   med.name = "size";
   med.attr = "medium";
   const medLabel = document.createElement("label");
   medLabel.textContent = `Medium 14" $12.99`;
+  mdDiv.append(med, medLabel);
 
   const lg = document.createElement("input");
+  const lgDiv = document.createElement("div");
+  lgDiv.className = "size-div";
   lg.type = "radio";
   lg.value = 14.99;
   lg.name = "size";
   lg.attr = "large";
   const lgLabel = document.createElement("label");
   lgLabel.textContent = `Larger 16" $14.99`;
-
-  pizzaForm.append(h3, small, smLabel, med, medLabel, lg, lgLabel);
+  lgDiv.append(lg, lgLabel);
+  pizzaForm.append(h3, smDiv, mdDiv, lgDiv);
   menu.append(pizzaForm);
   chooseToppings();
 };
@@ -327,8 +308,11 @@ const PizzaSize = () => {
 const chooseToppings = () => {
   const div = document.createElement("div");
   const title = document.createElement("h3");
-  title.textContent = "Choose your Toppings. $1 each";
-  div.append(title);
+  title.textContent = "Choose your Toppings.";
+  const priceTitle = document.createElement("h4");
+  priceTitle.textContent = "$1 each";
+
+  div.append(title, priceTitle);
   const toppingDiv = document.createElement("div");
   toppingDiv.className = "topping-div";
   for (let i = 0; i < toppings.length; i++) {
@@ -431,8 +415,16 @@ pizzaSubmit.addEventListener("click", (e) => {
     name += ".";
   }
 
-  let toppingPrice = parseInt(toppings.length);
-  let price = (basePrice + toppingPrice) * quantity;
+  let toppingPrice = parseFloat(toppings.length);
+  toppingPrice.toFixed(2);
+  console.log(toppingPrice);
+  console.log(basePrice);
+  console.log(basePrice + toppingPrice);
+  
+  let price = basePrice + toppingPrice;
+  price = price.toFixed(2);
+  price =price* quantity;
+  console.log(price)
 
   let pizzaOrder = {
     name,
@@ -499,10 +491,12 @@ const closeModal = () => {
   closeBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
+    mainMenu.style.display="block";
   });
   backBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
+    mainMenu.style.display="block";
   });
   checkoutBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
@@ -545,8 +539,7 @@ const shoppingCart = () => {
     const orderI = order[i];
     for (x = 0; x < orderI.length; x++) {
       const orderX = orderI[x];
-      console.log(orderX.name);
-      console.log(orderX.price);
+
       const tr = document.createElement("tr");
       const tdName = document.createElement("td");
       tdName.textContent = orderX.name;
@@ -561,12 +554,11 @@ const shoppingCart = () => {
       tdButton.appendChild(button);
       tr.append(tdName, tdDots, tdPrice, tdButton);
       table.appendChild(tr);
-      if (orderX.price !== NaN) {
-        subTotal += orderX.price;
-      }
+      subTotal += orderX.price;
     }
   }
   // calculates total with tax
+  subTotal=subTotal.toFixed(2)
   total = subTotal * 1.08;
   total = total.toFixed(2);
 
@@ -595,12 +587,14 @@ const shoppingCart = () => {
   // buttons to add more or proceed to next screen
   const addMoreBtn = document.createElement("button");
   addMoreBtn.textContent = "Add More!";
+  addMoreBtn.className="cart-btn";
   addMoreBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
   });
   const addTipButton = document.createElement("button");
   addTipButton.textContent = "Next";
+  addTipButton.className="cart-btn";
   addTipButton.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     tipScreen();
@@ -636,6 +630,7 @@ const tipScreen = () => {
   btn20.value = 1.2;
   btn20.className = "tip20";
   const custDiv = document.createElement("div");
+  custDiv.className="customTipDiv"
   const btnCustomSubmit = document.createElement("button");
   btnCustomSubmit.textContent = "Add Custom Tip";
   btnCustomSubmit.type = "submit";
@@ -735,6 +730,7 @@ const customerInfo = () => {
   );
 
   const contactDiv = document.createElement("div");
+  contactDiv.className = "email-list";
   const contactLabel = document.createElement("label");
   contactLabel.textContent = "Sign up for some great Deals";
   const contactCheckbox = document.createElement("input");

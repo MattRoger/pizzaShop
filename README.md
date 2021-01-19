@@ -13,6 +13,8 @@ no
 
  -[x] create shopping cart
 
+ -[ ] remove item from cart
+
  -[x] create checkout
  
  -[ ] verify user is in delivery range
