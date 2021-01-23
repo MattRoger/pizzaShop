@@ -538,12 +538,16 @@ const closeModal = () => {
 
 // Checkout code
 
-// checks if items in shopping cart.
+// checks if items in shopping cart.fa-shopping-cart
 const checkCart = () => {
+  const cartIcon=document.querySelector(".fa-shopping-cart")
   if (order.length > 0) {
+    cartIcon.style.color="#F8FAF0";
+  }else{
+    cartIcon.style.color="#5d5e5a";    
   }
 };
-
+checkCart()
 // creates a table to display the order
 const shoppingCart = () => {
   const div = document.createElement("div");
