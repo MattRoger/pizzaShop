@@ -12,8 +12,18 @@ const dessertForm = document.createElement("form");
 const modal = document.querySelector(".cart-modal");
 const buttons = document.getElementsByTagName("BUTTON");
 
+// color pallet
+
+const light = "#F8FAF0";
+const dark = "#12130F";
+const greenHight = "#40750A";
+const sectionBackground = "#534D56";
+const pinkChalk = "#F786AA";
+const greenChalk = "#99F7AB";
+
 let order = [];
 let total = 0;
+let subtotal = 0;
 let tip = 1;
 const appetizers = [
   {
@@ -144,19 +154,19 @@ pizzaMenuButton.addEventListener("click", () => {
   dessertForm.style.display = "none";
 });
 appsMenuButton.addEventListener("click", () => {
-  appForm.style.display = "block";
+  appForm.style.display = "flex";
   pizzaForm.style.display = "none";
   entForm.style.display = "none";
   dessertForm.style.display = "none";
 });
 entreeMenuButton.addEventListener("click", () => {
-  entForm.style.display = "block";
+  entForm.style.display = "flex";
   pizzaForm.style.display = "none";
   appForm.style.display = "none";
   dessertForm.style.display = "none";
 });
 dessertMenuButton.addEventListener("click", () => {
-  dessertForm.style.display = "block";
+  dessertForm.style.display = "flex";
   pizzaForm.style.display = "none";
   appForm.style.display = "none";
   entForm.style.display = "none";
@@ -169,21 +179,46 @@ const renderMenu = (menuList, id, form) => {
   for (let i = 0; i < menuList.length; i++) {
     const div = document.createElement("div");
     div.className = "menu-item";
-    const h3 = document.createElement("h3");
-    h3.textContent = menuList[i].name;
+    const name = document.createElement("h3");
+    // changes first letter to capital and color"
+    const words = menuList[i].name;
+    let wordBank = words.split(" ");
+    for (let i = 0; i < wordBank.length; i++) {
+      let word = wordBank[i];
+      const firstLetterSpan = document.createElement("span");
+      const endSpan = document.createElement("span");
+      let firsLetter = word[0];
+      firsLetter = firsLetter.toUpperCase();
+      firstLetterSpan.textContent = firsLetter;
+      firstLetterSpan.style.color = greenChalk;
+      firstLetterSpan.style.fontSize = "115%";
+      let endWord = "";
+      for (let i = 1; i < word.length; i++) {
+        endWord += word[i];
+      }
+      endSpan.textContent = endWord;
+      endSpan.style.textDecoration = "underline";
+      endSpan.style.textDecorationColor = greenChalk;
+      endSpan.style.color = pinkChalk;
+
+      name.append(firstLetterSpan, endSpan, "  ");
+    }
+
     const description = document.createElement("p");
     description.textContent = menuList[i].description;
     const price = document.createElement("p");
     price.textContent = "$" + menuList[i].price;
+    price.className = "price";
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = "appCheckbox";
-    checkbox.className = "appCheckbox";
+    checkbox.className = "checkbox";
     checkbox.id = menuList[i].name;
     checkbox.value = menuList[i].price;
     const label = document.createElement("label");
     label.textContent = "Add to order! ";
-    div.append(h3, description, price, checkbox, label);
+
+    div.append(name, description, price, checkbox, label);
     form.append(div);
   }
   const input = document.createElement("input");
@@ -199,38 +234,38 @@ const renderMenu = (menuList, id, form) => {
 //appetizers
 appForm.action = "index.html";
 appForm.method = "post";
-appForm.className = "appetizer-form";
+appForm.className = "order-form";
 
 renderMenu(appetizers, "appetizersSubmit", appForm);
 
 //entrees
 entForm.action = "index.html";
 entForm.method = "post";
-entForm.className = "ent-form";
+entForm.className = "order-form";
 renderMenu(entrees, "entSubmit", entForm);
 
 //dessert
 dessertForm.action = "index.html";
 dessertForm.method = "post";
-dessertForm.className = "desserts-form";
+dessertForm.className = "order-form";
 renderMenu(desserts, "dessertSubmit", dessertForm);
 
 // cart submits, should be DRY
 appetizersSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  addToOrder()
+  addToOrder();
 });
 
 entSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  addToOrder()
-})
+  addToOrder();
+});
 dessertSubmit.addEventListener("click", (e) => {
   e.preventDefault();
-  addToOrder()
-})
+  addToOrder();
+});
 
-const addToOrder=()=>{
+const addToOrder = () => {
   mainMenu.style.display = "none";
   dessertForm.style.display = "none";
   pizzaForm.style.display = "none";
@@ -239,7 +274,7 @@ const addToOrder=()=>{
   let selectedApps = [];
   let notice = [];
   const checkboxes = document.querySelectorAll(
-    "input[type='checkbox'].appCheckbox"
+    "input[type='checkbox'].checkbox"
   );
   for (checkbox of checkboxes) {
     if (checkbox.checked) {
@@ -256,8 +291,7 @@ const addToOrder=()=>{
   }
   alertOrderWindow(notice);
   checkCart();
-}
-
+};
 
 // pizza menu
 pizzaForm.action = "index.html";
@@ -298,7 +332,7 @@ const PizzaSize = () => {
   lg.name = "size";
   lg.attr = "large";
   const lgLabel = document.createElement("label");
-  lgLabel.textContent = `Larger 16" $14.99`;
+  lgLabel.textContent = `Large 16" $14.99`;
   lgDiv.append(lg, lgLabel);
   pizzaForm.append(h3, smDiv, mdDiv, lgDiv);
   menu.append(pizzaForm);
@@ -332,6 +366,7 @@ const chooseToppings = () => {
   pizzaForm.append(div);
   pizzaQuantity();
 };
+
 const pizzaQuantity = () => {
   const input = document.createElement("input");
   input.type = "number";
@@ -361,6 +396,8 @@ const addPizzaSubmit = () => {
   const input = document.createElement("input");
   input.type = "submit";
   input.value = "submit";
+  input.style.width = "30vh";
+  input.style.marginTop = "1rem";
   input.textContent = "Add to order";
   input.id = "pizzaSubmit";
   input.style.display = "block";
@@ -417,14 +454,9 @@ pizzaSubmit.addEventListener("click", (e) => {
 
   let toppingPrice = parseFloat(toppings.length);
   toppingPrice.toFixed(2);
-  console.log(toppingPrice);
-  console.log(basePrice);
-  console.log(basePrice + toppingPrice);
-  
   let price = basePrice + toppingPrice;
   price = price.toFixed(2);
-  price =price* quantity;
-  console.log(price)
+  price = price * quantity;
 
   let pizzaOrder = {
     name,
@@ -491,12 +523,12 @@ const closeModal = () => {
   closeBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
-    mainMenu.style.display="block";
+    mainMenu.style.display = "block";
   });
   backBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
-    mainMenu.style.display="block";
+    mainMenu.style.display = "block";
   });
   checkoutBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
@@ -509,12 +541,10 @@ const closeModal = () => {
 // checks if items in shopping cart.
 const checkCart = () => {
   if (order.length > 0) {
-    // console.log("order in cart");
-    // console.log(order);
   }
 };
 
-// renders shopping cart
+// creates a table to display the order
 const shoppingCart = () => {
   const div = document.createElement("div");
   div.className = "checkout-div";
@@ -531,15 +561,40 @@ const shoppingCart = () => {
   const th4 = document.createElement("th");
   th4.textContent = "Remove";
   tr1.append(th1, th2, th3, th4);
-
   table.appendChild(tr1);
+  subtotalCalc();
+
+  shoppingCartRows(table);
+  totalRows(table, div);
+  tableButtons(div);
+};
+// calculates subtotal
+const subtotalCalc = () => {
   // calculates subtotal
-  let subTotal = 0;
   for (i = 0; i < order.length; i++) {
     const orderI = order[i];
     for (x = 0; x < orderI.length; x++) {
       const orderX = orderI[x];
+      subtotal += orderX.price;
+    }
+  }
+  totalCalc();
+};
+// calculates total
+const totalCalc = () => {
+  total = subtotal * 1.08;
+  total = total.toFixed(2);
+  return total;
+};
 
+
+// function creates table rows for each item and adds button to remove items.
+// param table targets the table row
+const shoppingCartRows = (table) => {
+  for (i = 0; i < order.length; i++) {
+    const orderI = order[i];
+    for (x = 0; x < orderI.length; x++) {
+      const orderX = orderI[x];
       const tr = document.createElement("tr");
       const tdName = document.createElement("td");
       tdName.textContent = orderX.name;
@@ -551,28 +606,44 @@ const shoppingCart = () => {
       const button = document.createElement("button");
       button.textContent = "X";
       button.className = "removeButton";
+      button.attr = i;
+      button.value = x;
+      button.addEventListener("click", () => {
+        const subtotalTd = document.querySelector(".subtotal");
+        const totalTd = document.querySelector(".totalPrice");
+        delete order[button.attr][button.value];
+        subtotal -= orderX.price;
+        subtotal=subtotal.toFixed(2);
+        table.removeChild(tr);
+        // totalRows(table, div);
+        subtotalTd.textContent = subtotal;
+        totalCalc();
+        totalTd.textContent= total;
+      });
       tdButton.appendChild(button);
       tr.append(tdName, tdDots, tdPrice, tdButton);
       table.appendChild(tr);
-      subTotal += orderX.price;
     }
   }
-  // calculates total with tax
-  subTotal=subTotal.toFixed(2)
-  total = subTotal * 1.08;
-  total = total.toFixed(2);
+};
 
-  const subTotalTr = document.createElement("tr");
+//creates table rows to show subtotal and total
+
+const totalRows = (table, div) => {
+  const subtotalTr = document.createElement("tr");
+  subtotalTr.className = "subtotalTr";
   const td1 = document.createElement("td");
-  td1.textContent = "Subtotal";
+  td1.textContent = "subtotal";
   td1.colSpan = 2;
   const td2 = document.createElement("td");
   td2.textContent = "....";
   const td3 = document.createElement("td");
-  td3.textContent = subTotal;
-  subTotalTr.append(td1, td2, td3);
+  td3.textContent = subtotal;
+  td3.className = "subtotal";
+  subtotalTr.append(td1, td2, td3);
 
   const totalTr = document.createElement("tr");
+  totalTr.className = "totalTr";
   const td4 = document.createElement("td");
   td4.textContent = "Total";
   td4.colSpan = 2;
@@ -580,21 +651,26 @@ const shoppingCart = () => {
   td5.textContent = "....";
   const td6 = document.createElement("td");
   td6.textContent = total;
+  td6.className = "price";
+  td6.className = "totalPrice";
   totalTr.append(td4, td5, td6);
-  table.append(subTotalTr, totalTr);
+  table.append(subtotalTr, totalTr);
   div.appendChild(table);
+};
 
-  // buttons to add more or proceed to next screen
+
+// creates buttons to add more or proceed to next screen and appends them to the div
+const tableButtons = (div) => {
   const addMoreBtn = document.createElement("button");
   addMoreBtn.textContent = "Add More!";
-  addMoreBtn.className="cart-btn";
+  addMoreBtn.className = "cart-btn";
   addMoreBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
   });
   const addTipButton = document.createElement("button");
   addTipButton.textContent = "Next";
-  addTipButton.className="cart-btn";
+  addTipButton.className = "cart-btn";
   addTipButton.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     tipScreen();
@@ -602,6 +678,8 @@ const shoppingCart = () => {
   div.append(addMoreBtn, addTipButton);
   modal.appendChild(div);
 };
+
+
 
 // allows user to add tip
 const tipScreen = () => {
@@ -630,7 +708,9 @@ const tipScreen = () => {
   btn20.value = 1.2;
   btn20.className = "tip20";
   const custDiv = document.createElement("div");
-  custDiv.className="customTipDiv"
+  const buttonDiv = document.createElement("div");
+  buttonDiv.className = "tipBtnDiv";
+  custDiv.className = "custTipDiv";
   const btnCustomSubmit = document.createElement("button");
   btnCustomSubmit.textContent = "Add Custom Tip";
   btnCustomSubmit.type = "submit";
@@ -639,19 +719,25 @@ const tipScreen = () => {
   customTipInput.type = "number";
   customTipInput.name = "customTip";
   customTipInput.id = "customTip";
+  customTipInput.min = 0;
   customTipInput.limit = 100;
   custDiv.append(customTipInput, btnCustomSubmit);
-  div.append(h3, btn0, btn10, btn15, btn20, custDiv, totalWTip);
+  buttonDiv.append(btn0, btn10, btn15, btn20);
+  div.append(h3, buttonDiv, custDiv, totalWTip);
+  div.className = "tip-div";
   modal.appendChild(div);
   tipCalc();
   next = document.createElement("button");
   next.textContent = "Next";
+  next.className = "next";
   div.appendChild(next);
   next.addEventListener("click", () => {
     modal.removeChild(div);
     customerInfo();
   });
+
 };
+
 
 // calculates total with tip
 const tipCalc = () => {
@@ -680,6 +766,7 @@ const tipCalc = () => {
       let tipTotal = total * tip;
       tipTotal = tipTotal.toFixed(2);
       tipMessage.textContent = `Your total is $${tipTotal}`;
+      tipMessage.style.color = pinkChalk;
     });
   }
 };

@@ -5,26 +5,33 @@ A web app to order pizza, using vanilla js
 ## Build Status
 no
  ### To Do
- -[ ] create layout
+ -[x] create layout
 
- -[ ] create header
+ -[x] create header
 
- -[ ] create menu layout
+ -[x] create menu layout
 
  -[x] create shopping cart
 
- -[ ] remove item from cart
+ -[x] remove item from cart
 
  -[x] create checkout
- 
+
+ -[ ] add cart Icon
+
+ -[ ] add drinks
+
  -[ ] verify user is in delivery range
 
  -[ ] minor fixes need
 
  **-[x] in main links, US is capitalized, one has a >
- **-[ ] pizza size say larger pizza instead of large
- **-[ ] pizza price is not rounding to two decimals
- **-[ ] subtotal price is not rounding to two decimals
+ **-[x] pizza size say larger pizza instead of large
+ **-[x] pizza price is not rounding to two decimals
+ **-[x] subtotal price is not rounding to two decimals
+ **-[ ] make buttons link to top of page
+ **-[ ] hide pizza submit form
+ **-[ ] add more from checkout doesnt show menu
 
 ## Tech/framework used
 

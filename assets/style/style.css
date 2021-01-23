@@ -46,8 +46,7 @@ header {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding-top: 100px;
-  height: 100vh;
+
   overflow: hidden;
 }
 h1 {
@@ -78,25 +77,26 @@ h4 {
   box-sizing: border-box;
 }
 nav {
-  position: fixed;
   background-color: #12130f;
-  top: 0;
   width: 100vw;
-  height: 10%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  font-family: "East Sea Dokdo", cursive;
   display: inline;
 }
 .main-nav,
 .menu-nav {
+  font-family: "East Sea Dokdo", cursive;
   font-size: 1.75rem;
   background-color: #12130f;
   padding-top: 1rem;
   padding-bottom: 1rem;
   display: flex;
   justify-content: space-around;
+}
+
+.menu-nav li:hover {
+  color: #99f7ab;
 }
 
 .intro {
@@ -148,6 +148,14 @@ form input[type="checkbox"] {
   padding: 1rem;
   margin: 1rem auto;
 }
+
+.order-form {
+  flex-wrap: wrap;
+}
+.menu-insert input[type="submit"] {
+  width: 60vw;
+  margin: auto;
+}
 /* 
 .menu-item label,
 .menu-item p {
@@ -167,10 +175,13 @@ form input[type="checkbox"] {
 }
 
 .cart-modal {
+  position: absolute;
+  top: 0;
   color: #f8faf0;
+  padding-top: 5rem;
 }
 .checkout-div {
-  margin: 1.25rem auto;
+  margin: auto;
   border: 0.25rem solid #f8faf0;
   padding: 1.5rem;
   width: 60%;
@@ -215,6 +226,13 @@ td button {
   max-height: 2.5rem;
 }
 
+.subtotal {
+  color: #99f7ab;
+}
+.price {
+  color: #f786aa;
+}
+
 .cart-btn {
   margin: 0.5rem;
 }
@@ -231,21 +249,22 @@ td button {
   align-items: center;
 }
 
-.noTip,
-.tip10,
-.tip15,
-.tip20,
-.customTipSubmit {
+.tip-div {
   font-size: 1.5rem;
   margin-bottom: 0 1rem 0;
 }
 @media only screen and (min-width: 385px) {
-  .noTip,
-  .tip10,
-  .tip15,
-  .tip20 {
+  .tip-div {
     font-size: 1.85rem;
   }
+}
+.tip-div button:hover {
+  color: #99f7ab;
+  border-color: #99f7ab;
+}
+#tippedAmount {
+  padding: 1.5rem;
+  color: #f786aa;
 }
 
 fieldset label {
@@ -397,7 +416,6 @@ fieldset input {
   #contact,
   #catering,
   .cart-modal {
-    padding-top: 25vh;
     background-size: 100vw;
     background-repeat: repeat-y;
   }
@@ -405,6 +423,11 @@ fieldset input {
     text-align: center;
     font-size: 6rem;
   }
+
+  .menu-item {
+    width: 40vw;
+  }
+
   input[type="radio"],
   form input[type="checkbox"] {
     margin: 0.5rem;
@@ -416,4 +439,50 @@ fieldset input {
     height: 18rem;
     width: 80%;
   } */
+  .checkout-div {
+    width: 60vw;
+  }
+  .checkout-div p {
+    font-size: 2.5rem;
+  }
+  th,
+  td {
+    font-size: 2.5rem;
+  }
+  .removeButton {
+    margin-bottom: 1.5rem;
+  }
+
+  .tip-div {
+    width: 60vw;
+    border: 2px solid #f8faf0;
+    margin: auto;
+  }
+  .tipHeader {
+    text-align: center;
+    padding-bottom: 1.5rem;
+  }
+  .custTipDiv,
+  .tipBtnDiv {
+    display: flex;
+    justify-content: space-around;
+  }
+  #customTip {
+    width: 20%;
+    font-size: 2.5rem;
+    margin: 1rem auto;
+  }
+  .tip-div p {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .next{
+    display: block;
+    margin: 1rem auto;
+  }
+  #fName, #lName, #email {
+    font-size: 1.5rem;
+    height: 1.5rem;
+    width: 60%;
+}
 }
