@@ -250,21 +250,7 @@ dessertForm.method = "post";
 dessertForm.className = "order-form";
 renderMenu(desserts, "dessertSubmit", dessertForm);
 
-// cart submits, should be DRY
-appetizersSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-  addToOrder();
-});
-
-entSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-  addToOrder();
-});
-dessertSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-  addToOrder();
-});
-
+// 
 const addToOrder = () => {
   mainMenu.style.display = "none";
   dessertForm.style.display = "none";
@@ -275,9 +261,9 @@ const addToOrder = () => {
   let notice = [];
   const checkboxes = document.querySelectorAll(
     "input[type='checkbox'].checkbox"
-  );
-  for (checkbox of checkboxes) {
-    if (checkbox.checked) {
+    );
+    for (checkbox of checkboxes) {
+      if (checkbox.checked) {
       const price = parseFloat(checkbox.value);
       const orderedApp = { name: checkbox.id, price: price };
       selectedApps.push(orderedApp);
@@ -312,7 +298,7 @@ const PizzaSize = () => {
   const smLabel = document.createElement("label");
   smLabel.textContent = `Small 10" $10.99`;
   smDiv.append(small, smLabel);
-
+  
   const med = document.createElement("input");
   const mdDiv = document.createElement("div");
   mdDiv.className = "size-div";
@@ -323,7 +309,7 @@ const PizzaSize = () => {
   const medLabel = document.createElement("label");
   medLabel.textContent = `Medium 14" $12.99`;
   mdDiv.append(med, medLabel);
-
+  
   const lg = document.createElement("input");
   const lgDiv = document.createElement("div");
   lgDiv.className = "size-div";
@@ -345,7 +331,7 @@ const chooseToppings = () => {
   title.textContent = "Choose your Toppings.";
   const priceTitle = document.createElement("h4");
   priceTitle.textContent = "$1 each";
-
+  
   div.append(title, priceTitle);
   const toppingDiv = document.createElement("div");
   toppingDiv.className = "topping-div";
@@ -407,6 +393,7 @@ PizzaSize();
 
 pizzaSubmit.addEventListener("click", (e) => {
   e.preventDefault();
+  pizzaForm.style.display = "none";
   let toppings = [];
   let quantity = 1;
   let pizzaOrders = [];
@@ -421,21 +408,21 @@ pizzaSubmit.addEventListener("click", (e) => {
   }
   const checkboxes = document.querySelectorAll(
     "input[type='checkbox'].toppings"
-  );
-  for (checkbox of checkboxes) {
-    if (checkbox.checked) {
-      toppings.push(checkbox.id);
-      checkbox.checked = false;
+    );
+    for (checkbox of checkboxes) {
+      if (checkbox.checked) {
+        toppings.push(checkbox.id);
+        checkbox.checked = false;
+      }
     }
-  }
-  const quantitySelector = document.querySelector(".pizzaQuantity");
-  quantity = quantitySelector.value;
-  quantity = parseInt(quantity);
-  quantitySelector.value = 1;
-
-  const specialDirectionsInput = document.querySelector(
+    const quantitySelector = document.querySelector(".pizzaQuantity");
+    quantity = quantitySelector.value;
+    quantity = parseInt(quantity);
+    quantitySelector.value = 1;
+    
+    const specialDirectionsInput = document.querySelector(
     ".pizzaSpecialDirections"
-  );
+    );
   const specialDirections = specialDirectionsInput.value;
 
   let name = `${quantity}x ${size} pizza`;
@@ -451,13 +438,13 @@ pizzaSubmit.addEventListener("click", (e) => {
   } else {
     name += ".";
   }
-
+  
   let toppingPrice = parseFloat(toppings.length);
   toppingPrice.toFixed(2);
   let price = basePrice + toppingPrice;
   price = price.toFixed(2);
   price = price * quantity;
-
+  
   let pizzaOrder = {
     name,
     price,
@@ -470,7 +457,7 @@ pizzaSubmit.addEventListener("click", (e) => {
   };
   pizzaOrders.push(pizzaOrder);
   order.push(pizzaOrders);
-
+  
   // creates string for alertNotice()
   let string = name;
   let specialString = "";
@@ -479,11 +466,40 @@ pizzaSubmit.addEventListener("click", (e) => {
   }
   const total = `...$${price}`;
   notice.push(string, specialString, total);
-
   alertOrderWindow(notice);
   checkCart();
+  scrollToTop()
+});
+  
+
+// cart submits
+appetizersSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  addToOrder();
+  scrollToTop()
 });
 
+entSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  addToOrder();
+  scrollToTop()
+});
+dessertSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  addToOrder();
+  scrollToTop()
+});
+
+const scrollToTop=()=>{
+  window.scroll({
+    top: 0, 
+    left: 0, 
+    behavior: 'auto'
+  });
+}
+
+// alerts user if something is added to the cart
+// param added takes a string
 const alertOrderWindow = (added) => {
   const xBtn = document.createElement("button");
   const checkoutBtn = document.createElement("button");
@@ -519,7 +535,7 @@ const closeModal = () => {
   const closeBtn = document.querySelector("#close");
   const backBtn = document.querySelector("#back");
   const checkoutBtn = document.querySelector("#checkout");
-
+  
   closeBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
@@ -536,18 +552,22 @@ const closeModal = () => {
   });
 };
 
-// Checkout code
 
-// checks if items in shopping cart.fa-shopping-cart
+// checks if items in shopping cart
 const checkCart = () => {
-  const cartIcon=document.querySelector(".fa-shopping-cart")
+  const cartIcon=document.querySelector(".fa-shopping-cart");
+  const cartNumber=document.querySelector(".items-in-cart");
   if (order.length > 0) {
     cartIcon.style.color="#F8FAF0";
+    // cartNumber.textContent=1;   
+    cartNumber.textContent=order.length;
   }else{
-    cartIcon.style.color="#5d5e5a";    
+    cartIcon.style.color="#5d5e5a"; 
+    cartNumber.textContent=order.length;   
   }
 };
 checkCart()
+
 // creates a table to display the order
 const shoppingCart = () => {
   const div = document.createElement("div");
@@ -567,7 +587,7 @@ const shoppingCart = () => {
   tr1.append(th1, th2, th3, th4);
   table.appendChild(tr1);
   subtotalCalc();
-
+  
   shoppingCartRows(table);
   totalRows(table, div);
   tableButtons(div);
@@ -645,7 +665,7 @@ const totalRows = (table, div) => {
   td3.textContent = subtotal;
   td3.className = "subtotal";
   subtotalTr.append(td1, td2, td3);
-
+  
   const totalTr = document.createElement("tr");
   totalTr.className = "totalTr";
   const td4 = document.createElement("td");
@@ -671,6 +691,7 @@ const tableButtons = (div) => {
   addMoreBtn.addEventListener("click", () => {
     modal.removeChild(modal.childNodes[0]);
     modal.style.display = "none";
+    mainMenu.style.display = "block";
   });
   const addTipButton = document.createElement("button");
   addTipButton.textContent = "Next";
