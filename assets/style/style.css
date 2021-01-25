@@ -1,20 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Damion&family=East+Sea+Dokdo&display=swap");
 
-body {
-  position: relative;
-  color: #f8faf0;
-}
 
-h1,
-h2 {
-  font-family: "Damion", cursive;
-  text-align: center;
-  color: #12130f;
-}
 caption,
-legend,
-h3,
-h4 {
+legend
+ {
   font-family: "East Sea Dokdo", cursive;
 }
 
@@ -95,9 +84,9 @@ nav {
   justify-content: space-around;
 }
 
-.menu-nav li:hover {
+/* .menu-nav li:hover {
   color: #99f7ab;
-}
+} */
 
 .intro {
   padding-top: 3rem;
@@ -177,7 +166,7 @@ form input[type="checkbox"] {
 .cart-modal {
   position: absolute;
   top: 0;
-  color: #f8faf0;
+  /* color: #f8faf0; */
   padding-top: 5rem;
 }
 .checkout-div {
@@ -226,17 +215,9 @@ td button {
   max-height: 2.5rem;
 }
 
-.subtotal {
-  color: #99f7ab;
-}
-.price {
-  color: #f786aa;
-}
-
 .cart-btn {
   margin: 0.5rem;
 }
-
 #customTip {
   height: 3rem;
   width: 4rem;
@@ -258,13 +239,12 @@ td button {
     font-size: 1.85rem;
   }
 }
-.tip-div button:hover {
+/* .tip-div button:hover {
   color: #99f7ab;
   border-color: #99f7ab;
-}
+} */
 #tippedAmount {
   padding: 1.5rem;
-  color: #f786aa;
 }
 
 fieldset label {

@@ -12,14 +12,6 @@ const dessertForm = document.createElement("form");
 const modal = document.querySelector(".cart-modal");
 const buttons = document.getElementsByTagName("BUTTON");
 
-// color pallet
-
-const light = "#F8FAF0";
-const dark = "#12130F";
-const greenHight = "#40750A";
-const sectionBackground = "#534D56";
-const pinkChalk = "#F786AA";
-const greenChalk = "#99F7AB";
 
 let order = [];
 let total = 0;
@@ -272,8 +264,9 @@ const addToOrder = () => {
   }
   order.push(selectedApps);
   for (i = 0; i < selectedApps.length; i++) {
-    const string = `${selectedApps[i].name}...$${selectedApps[i].price}`;
-    notice.push(string);
+    const string1 = `${selectedApps[i].name}...$${selectedApps[i].price}`;
+    const string2 = `...$${selectedApps[i].price}`;
+    notice.push(string1, string2);
   }
   alertOrderWindow(notice);
   checkCart();
@@ -382,6 +375,7 @@ const addPizzaSubmit = () => {
   const input = document.createElement("input");
   input.type = "submit";
   input.value = "submit";
+  input.className="addToCart";
   input.style.width = "30vh";
   input.style.marginTop = "1rem";
   input.textContent = "Add to order";
@@ -517,8 +511,10 @@ const alertOrderWindow = (added) => {
   div.appendChild(xBtn);
   for (i = 0; i < added.length; i++) {
     const p = document.createElement("p");
-    p.textContent = `${added[i]} \n`;
-    div.appendChild(p);
+    if(added[i]!=""){
+      p.textContent = `${added[i]} \n`;
+      div.appendChild(p);
+    }
   }
   const p = document.createElement("p");
   p.textContent = "Were added to your order";
@@ -553,20 +549,7 @@ const closeModal = () => {
 };
 
 
-// checks if items in shopping cart
-const checkCart = () => {
-  const cartIcon=document.querySelector(".fa-shopping-cart");
-  const cartNumber=document.querySelector(".items-in-cart");
-  if (order.length > 0) {
-    cartIcon.style.color="#F8FAF0";
-    // cartNumber.textContent=1;   
-    cartNumber.textContent=order.length;
-  }else{
-    cartIcon.style.color="#5d5e5a"; 
-    cartNumber.textContent=order.length;   
-  }
-};
-checkCart()
+
 
 // creates a table to display the order
 const shoppingCart = () => {
@@ -636,10 +619,9 @@ const shoppingCartRows = (table) => {
         const subtotalTd = document.querySelector(".subtotal");
         const totalTd = document.querySelector(".totalPrice");
         delete order[button.attr][button.value];
-        subtotal -= orderX.price;
+        subtotal -= orderX.price;        
         subtotal=subtotal.toFixed(2);
         table.removeChild(tr);
-        // totalRows(table, div);
         subtotalTd.textContent = subtotal;
         totalCalc();
         totalTd.textContent= total;
@@ -704,7 +686,16 @@ const tableButtons = (div) => {
   modal.appendChild(div);
 };
 
-
+// checks if items in shopping cart
+const checkCart = () => {
+  const cartIcon=document.querySelector(".fa-shopping-cart");
+  if (order.length > 0) {
+    cartIcon.style.color="#F8FAF0";
+  }else{
+    cartIcon.style.color="#5d5e5a"; 
+  }
+};
+checkCart()
 
 // allows user to add tip
 const tipScreen = () => {
