@@ -1,27 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Damion&family=East+Sea+Dokdo&display=swap");
 
 
-caption,
-legend
- {
-  font-family: "East Sea Dokdo", cursive;
-}
-
-p,
-td,
-th,
-label {
+body {
   font-size: 2rem;
-  font-family: "Amatic SC", cursive;
-  color: #f8faf0;
 }
 input[type="submit"],
 button {
   font-size: 2rem;
-  color: #f8faf0;
-  background-color: #534d5600;
-  border-color: #f8faf0;
-  font-family: "East Sea Dokdo", cursive;
 }
 
 header,
@@ -66,27 +51,16 @@ h4 {
   box-sizing: border-box;
 }
 nav {
-  background-color: #12130f;
   width: 100vw;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  display: inline;
 }
 .main-nav,
 .menu-nav {
-  font-family: "East Sea Dokdo", cursive;
-  font-size: 1.75rem;
-  background-color: #12130f;
+  font-size: 1.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   display: flex;
   justify-content: space-around;
 }
-
-/* .menu-nav li:hover {
-  color: #99f7ab;
-} */
 
 .intro {
   padding-top: 3rem;
@@ -145,16 +119,6 @@ form input[type="checkbox"] {
   width: 60vw;
   margin: auto;
 }
-/* 
-.menu-item label,
-.menu-item p {
-  font-size: 1.75rem;
-}
-.menu-item label {
-  padding-right: 2rem;
-  padding-left: 0.5rem;
-  padding-top: 1.25rem;
-} */
 
 .size-div {
   padding-bottom: 1rem;
@@ -166,14 +130,13 @@ form input[type="checkbox"] {
 .cart-modal {
   position: absolute;
   top: 0;
-  /* color: #f8faf0; */
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 .checkout-div {
   margin: auto;
   border: 0.25rem solid #f8faf0;
   padding: 1.5rem;
-  width: 60%;
+  width: 80%;
 }
 .checkout-div #close {
   float: right;
@@ -202,7 +165,7 @@ legend {
   margin-bottom: 2rem;
 }
 tr {
-  text-align: right;
+  text-align: left;
 }
 th {
   height: 75px;
@@ -233,16 +196,14 @@ td button {
 .tip-div {
   font-size: 1.5rem;
   margin-bottom: 0 1rem 0;
+  width: 80%;
 }
 @media only screen and (min-width: 385px) {
   .tip-div {
     font-size: 1.85rem;
   }
 }
-/* .tip-div button:hover {
-  color: #99f7ab;
-  border-color: #99f7ab;
-} */
+
 #tippedAmount {
   padding: 1.5rem;
 }
@@ -414,11 +375,6 @@ fieldset input {
     width: 1.7rem;
     height: 1.7rem;
   }
-  /* .pizzaSpecialDirections {
-    font-size: 2rem;
-    height: 18rem;
-    width: 80%;
-  } */
   .checkout-div {
     width: 60vw;
   }

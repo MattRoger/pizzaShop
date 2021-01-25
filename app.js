@@ -549,8 +549,6 @@ const closeModal = () => {
 };
 
 
-
-
 // creates a table to display the order
 const shoppingCart = () => {
   const div = document.createElement("div");
@@ -685,17 +683,6 @@ const tableButtons = (div) => {
   div.append(addMoreBtn, addTipButton);
   modal.appendChild(div);
 };
-
-// checks if items in shopping cart
-const checkCart = () => {
-  const cartIcon=document.querySelector(".fa-shopping-cart");
-  if (order.length > 0) {
-    cartIcon.style.color="#F8FAF0";
-  }else{
-    cartIcon.style.color="#5d5e5a"; 
-  }
-};
-checkCart()
 
 // allows user to add tip
 const tipScreen = () => {
@@ -846,3 +833,19 @@ const customerInfo = () => {
   form.append(fieldSetContact, contactDiv, submitBtn);
   modal.appendChild(form);
 };
+// checks if items in shopping cart
+const checkCart = () => {
+  const cartIcon=document.querySelector(".fa-shopping-cart");
+  if (order.length > 0) {
+    cartIcon.style.color="#F8FAF0";
+    cartIcon.addEventListener("click",()=>{      
+      shoppingCart();
+      const checkoutDiv=document.querySelector(".checkout-div");
+      checkoutDiv.style.display="block";
+      modal.style.display="block";
+    })
+  }else{
+    cartIcon.style.color="#5d5e5a"; 
+  }
+};
+checkCart()

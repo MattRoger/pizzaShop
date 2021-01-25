@@ -1,4 +1,3 @@
-const menuItem = document.querySelectorAll(".menu-item");
 const menuLinks = document.querySelectorAll(".menu-nav li");
 const price = document.querySelectorAll(".price");
 // const subtotal = document.querySelectorAll(".subtotal");
@@ -7,9 +6,13 @@ const price = document.querySelectorAll(".price");
 const displayFont = "'Damion', cursive";
 const headingFont = "'East Sea Dokdo', cursive";
 const textFont = "'Amatic SC', cursive";
+
+// sets body styles
 const body = document.querySelector("body");
 body.style.color = light;
-body.position = "relative";
+body.style.position = "relative";
+body.style.fontFamily = textFont;
+body.style.color = light;
 
 // h1s &h2s
 const h1s = document.querySelectorAll("h1");
@@ -36,13 +39,29 @@ for (let i = 0; i < h4s.length; i++) {
   h4s[i].style.color = greenChalk;
   h4s[i].style.fontFamily = headingFont;
 }
+// buttons and inputs
+const allButtons = document.querySelectorAll("button");
+const inputSubmits = document.querySelectorAll("input[type='submit']");
+const buttonInputStyle = (buttonInput) => {
+  for (let i = 0; i < buttonInput.length; i++) {
+    buttonInput[i].style.fontFamily = headingFont;
+    buttonInput[i].style.backgroundColor = "#ffffff00";
+    buttonInput[i].style.borderColor = light;
+    buttonInput[i].style.color = light;
+  }
+};
+buttonInputStyle(allButtons);
+buttonInputStyle(inputSubmits);
 
 // Change nav links
 const navLinks = document.querySelectorAll("ul");
 const navLink = document.querySelectorAll("ul li");
+
 for (let i = 0; i < navLinks.length; i++) {
   navLinks[i].style.color = light;
   navLinks[i].style.fontFamily = headingFont;
+  navLinks[i].style.backgroundColor = dark;
+
 }
 for (let i = 0; i < navLink.length; i++) {
   navLink[i].addEventListener("mouseover", () => {
@@ -55,6 +74,7 @@ for (let i = 0; i < navLink.length; i++) {
 
 // menu section head
 const menuSectionHead = document.querySelector(".section-head");
+menuSectionHead.style.textAlign="center"
 const menuSectionHeadFirst = menuSectionHead.firstChild;
 menuSectionHeadFirst.style.fontSize = "120%";
 menuSectionHeadFirst.style.color = greenChalk;
@@ -65,13 +85,15 @@ menuSectionHeadLast.style.color = pinkChalk;
 
 // menu items
 // gives menu items there text and border colors
+const menuItem = document.querySelectorAll(".menu-item");
 for (i = 0; i < menuItem.length; i++) {
   menuItem[i].style.border = `${light} 4px solid`;
   menuItem[i].style.color = light;
+  
 }
-const menuPrice=document.querySelectorAll(".price");
-for(let i=0; i< menuPrice.length; i++){
-  menuPrice[i].style.color=greenChalk;
+const menuPrice = document.querySelectorAll(".price");
+for (let i = 0; i < menuPrice.length; i++) {
+  menuPrice[i].style.color = greenChalk;
 }
 // pizza forms
 
@@ -103,6 +125,7 @@ for (let i = 0; i < toppingDiv.length; i++) {
 const addToCart = document.querySelectorAll(".addToCart");
 // changes add to cart submits to green chalk on mouseover/out
 for (let i = 0; i < addToCart.length; i++) {
+  buttonInputStyle(addToCart);
   addToCart[i].addEventListener("mouseover", () => {
     addToCart[i].style.color = greenChalk;
     addToCart[i].style.borderColor = greenChalk;
@@ -111,7 +134,7 @@ for (let i = 0; i < addToCart.length; i++) {
     addToCart[i].style.color = light;
     addToCart[i].style.borderColor = light;
   });
-
+  
   addToCart[i].addEventListener("click", () => {
     // changes price color to chalk green
     const priceP = document.querySelectorAll(".checkout-div p");
@@ -119,20 +142,26 @@ for (let i = 0; i < addToCart.length; i++) {
       if (i % 2 != 0) {
         priceP[i].style.color = greenChalk;
       }
-    };
+    }
 
     // changes button hightlight on mouse over
-    const buttons = document.querySelectorAll(".checkout-div button");
-    for (let i = 0; i < buttons.length; i++) {
-      if (buttons[i].id == "checkout") {
-        hoverGreen(buttons[i])
-        buttons[i].addEventListener("click", () => {
+    const checkoutButtons = document.querySelectorAll(".checkout-div button");
+    buttonInputStyle(checkoutButtons);
+    for (let i = 0; i < checkoutButtons.length; i++) {
+      if (checkoutButtons[i].id == "checkout") {
+        hoverGreen(checkoutButtons[i]);
+        checkoutButtons[i].addEventListener("click", () => {
           checkoutStyleDiv();
         });
       } else {
-        hoverPink(buttons[i]);    
-      }     
+        hoverPink(checkoutButtons[i]);
+      }
     }
+    // shopping cart icon
+    const cartIcon=document.querySelector(".fa-shopping-cart");
+    cartIcon.addEventListener("click",()=>{
+      checkoutStyleDiv();
+    })
   });
 }
 
@@ -140,47 +169,83 @@ for (let i = 0; i < addToCart.length; i++) {
 const checkoutStyleDiv = () => {
   const table = document.querySelector(".checkout-div table");
   const caption = document.querySelector("caption");
-  const checkoutBtn = document.getElementById("#checkout");
   const tableHeading = table.childNodes[1];
   tableHeading.style.fontSize = "120%";
   const lastTr = tableHeading.lastChild;
   lastTr.style.color = pinkChalk;
   caption.style.color = pinkChalk;
-  const removeBtns = document.querySelectorAll(".removeButton");
-  for (let i = 0; i < removeBtns.length; i++) {
-    hoverPink(removeBtns[i]);
+  caption.style.fontFamily = headingFont;
+  const removeButtons = document.querySelectorAll(".removeButton");
+  buttonInputStyle(removeButtons);
+  for (let i = 0; i < removeButtons.length; i++) {
+    hoverPink(removeButtons[i]);
   }
-  const cartBtns=document.querySelectorAll(".cart-btn"
-  )
+
+  const cartButtons = document.querySelectorAll(".cart-btn");
+  buttonInputStyle(cartButtons);
+
   const subtotalTr = document.querySelector(".subtotal");
   subtotalTr.style.color = greenChalk;
   const totalTr = document.querySelector(".totalPrice");
   totalTr.style.color = pinkChalk;
-  const addMore=cartBtns[0];
+  const addMore = cartButtons[0];
   hoverPink(addMore);
-  const next=cartBtns[1];
-  next.addEventListener("click", ()=>{
+  const next = cartButtons[1];
+  next.addEventListener("click", () => {
     tipDivStyling();
-  })
+  });
   hoverGreen(next);
 };
 
 // tip div styling
-const tipDivStyling=()=>{
-  const tipHeader=document.querySelector(".tipHeader");
-  tipHeader.style.color=pinkChalk;
-  tipHeader.style.fontFamily=headingFont;
-  tipHeader.fontSize="120%";
-// why does this turn pink only after click
-  const TippedAmount=document.getElementById("#tippedAmount");
-  TippedAmount.style.color=pinkChalk;
-
-  const tipButtons=document.querySelectorAll(".tip-div button");
-  for(let i=0;i<tipButtons.length;i++){
-    hoverGreen(tipButtons[i])
+const tipDivStyling = () => {
+  const tipHeader = document.querySelector(".tipHeader");
+  tipHeader.style.color = pinkChalk;
+  tipHeader.style.fontFamily = headingFont;
+  tipHeader.fontSize = "120%";
+  tipHeader.style.textAlign="center";
+  const tipDiv = document.querySelector(".tip-div");
+  addBorder(tipDiv);
+  tipDiv.style.margin="auto";
+  const tipButtonDiv=document.querySelector(".tipBtnDiv");
+  const CustomButtonDiv=document.querySelector(".custTipDiv");
+  tipButtonDiv.style.width="90%";
+  tipButtonDiv.style.display="flex";  
+  tipButtonDiv.style.justifyContent="space-between";  
+  tipButtonDiv.style.margin="auto";  
+  CustomButtonDiv.style.width="90%";
+  CustomButtonDiv.style.display="flex";  
+  CustomButtonDiv.style.justifyContent="space-between";  
+  CustomButtonDiv.style.margin="auto";  
+  const tipButtons = document.querySelectorAll(".tip-div button");
+  buttonInputStyle(tipButtons);
+  const tippedAmount = document.getElementById("tippedAmount");
+  console.log(tippedAmount);
+  tippedAmount.style.color = pinkChalk;
+  tippedAmount.style.textAlign="center";
+  for (let i = 0; i < tipButtons.length; i++) {
+    hoverGreen(tipButtons[i]);
   }
+  const nextButton = document.querySelector(".next");
+  nextButton.style.width = "80%";
+  nextButton.style.display = "block";
+  nextButton.style.margin = "auto";
+  nextButton.style.marginBottom = "1rem";
+
+  nextButton.addEventListener("click", () => {
+    customerInfoDiv();
+  });
 };
 
+// customer info div
+const customerInfoDiv = () => {
+  const legend = document.querySelector("legend");
+  legend.style.color = pinkChalk;
+  legend.style.fontFamily = headingFont;
+  const buttonSubmit = document.querySelectorAll(".checkout-div button[type='submit']");
+  buttonInputStyle(buttonSubmit);
+  hoverGreen(buttonSubmit[0])
+};
 
 // hover pink
 const hoverPink = (element) => {
@@ -205,3 +270,9 @@ const hoverGreen = (element) => {
     element.style.borderColor = light;
   });
 };
+// add white border
+const addBorder=(element)=>{
+  element.style.border=`.25rem solid ${light}`;
+  element.style.borderColor=light;
+
+}
