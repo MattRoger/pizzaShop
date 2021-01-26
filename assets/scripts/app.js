@@ -8,7 +8,6 @@ const pizzaForm = document.createElement("form");
 const appForm = document.createElement("form");
 const entForm = document.createElement("form");
 const dessertForm = document.createElement("form");
-// const appSubmit = document.querySelector("#appetizersSubmit");
 const modal = document.querySelector(".cart-modal");
 const buttons = document.getElementsByTagName("BUTTON");
 
@@ -17,6 +16,8 @@ let order = [];
 let total = 0;
 let subtotal = 0;
 let tip = 1;
+
+// menu items
 const appetizers = [
   {
     id: 1,
@@ -115,7 +116,6 @@ const desserts = [
     price: "6.99",
   },
 ];
-
 const toppings = [
   "Pepperoni",
   "Sausage",
@@ -138,6 +138,7 @@ pizzaForm.style.display = "none";
 appForm.style.display = "none";
 entForm.style.display = "none";
 dessertForm.style.display = "none";
+
 // menu buttons
 pizzaMenuButton.addEventListener("click", () => {
   pizzaForm.style.display = "block";
@@ -164,9 +165,12 @@ dessertMenuButton.addEventListener("click", () => {
   entForm.style.display = "none";
 });
 
-// function creates the menu for ordering,
-// params are the menulist needed, and id as a string, and the form needed
-
+/**
+  function creates the menu for ordering,
+ * @param {object} menuList - takes one of the menu objects
+ * @param {string} id - takes a strong for the add to order Id;
+ * @param {string} form - takes a strong for the form name;
+ */
 const renderMenu = (menuList, id, form) => {
   for (let i = 0; i < menuList.length; i++) {
     const div = document.createElement("div");
@@ -242,7 +246,8 @@ dessertForm.method = "post";
 dessertForm.className = "order-form";
 renderMenu(desserts, "dessertSubmit", dessertForm);
 
-// 
+
+// function to adds items to order
 const addToOrder = () => {
   mainMenu.style.display = "none";
   dessertForm.style.display = "none";
@@ -268,7 +273,9 @@ const addToOrder = () => {
     const string2 = `...$${selectedApps[i].price}`;
     notice.push(string1, string2);
   }
+  // triggers function to let customer know items where added to cart
   alertOrderWindow(notice);
+  // function that checks cart for items
   checkCart();
 };
 
@@ -277,6 +284,7 @@ pizzaForm.action = "index.html";
 pizzaForm.method = "post";
 pizzaForm.className = "menu-item";
 
+// user chooses pizza size
 const PizzaSize = () => {
   const h3 = document.createElement("h3");
   h3.textContent = "Choose Size";
@@ -318,6 +326,7 @@ const PizzaSize = () => {
   chooseToppings();
 };
 
+// user chooses toppings
 const chooseToppings = () => {
   const div = document.createElement("div");
   const title = document.createElement("h3");
@@ -345,7 +354,7 @@ const chooseToppings = () => {
   pizzaForm.append(div);
   pizzaQuantity();
 };
-
+// user chooses how many pizzas
 const pizzaQuantity = () => {
   const input = document.createElement("input");
   input.type = "number";
@@ -359,7 +368,7 @@ const pizzaQuantity = () => {
   pizzaForm.append(label, input);
   specialDirections();
 };
-
+// user states any special directions
 const specialDirections = () => {
   const input = document.createElement("textarea");
   input.type = "textarea";
@@ -386,6 +395,7 @@ const addPizzaSubmit = () => {
 };
 PizzaSize();
 
+// users submits pizza order
 pizzaSubmit.addEventListener("click", (e) => {
   e.preventDefault();
   pizzaForm.style.display = "none";
@@ -465,7 +475,6 @@ pizzaSubmit.addEventListener("click", (e) => {
   checkCart();
   scrollToTop()
 });
-  
 
 // cart submits
 appetizersSubmit.addEventListener("click", (e) => {
@@ -485,6 +494,7 @@ dessertSubmit.addEventListener("click", (e) => {
   scrollToTop()
 });
 
+// scrolls to top of page
 const scrollToTop=()=>{
   window.scroll({
     top: 0, 
@@ -493,8 +503,11 @@ const scrollToTop=()=>{
   });
 }
 
-// alerts user if something is added to the cart
-// param added takes a string
+/**
+  alerts user if something is added to the cart
+ * 
+ * @param {array} added -takes an array to create notice that lets customer know an item has been added
+ */
 const alertOrderWindow = (added) => {
   const xBtn = document.createElement("button");
   const checkoutBtn = document.createElement("button");
@@ -528,6 +541,7 @@ const alertOrderWindow = (added) => {
   closeModal();
 };
 
+// closes modal and goes back to menu or to checkout screen
 const closeModal = () => {
   const closeBtn = document.querySelector("#close");
   const backBtn = document.querySelector("#back");
@@ -549,7 +563,6 @@ const closeModal = () => {
   });
 };
 
-
 // creates a table to display the order
 const shoppingCart = () => {
   const div = document.createElement("div");
@@ -568,10 +581,13 @@ const shoppingCart = () => {
   th4.textContent = "Remove";
   tr1.append(th1, th2, th3, th4);
   table.appendChild(tr1);
+  // function calculates subtotal
   subtotalCalc();
-  
+  // function added item rows to table
   shoppingCartRows(table);
+  // function adds totals rows to table
   totalRows(table, div);
+  // function adds buttons to table
   tableButtons(div);
 };
 // calculates subtotal
@@ -593,9 +609,10 @@ const totalCalc = () => {
   return total;
 };
 
-
-// function creates table rows for each item and adds button to remove items.
-// param table targets the table row
+/**
+ * function creates table rows for each item and adds button to remove items.
+ * @param {string} table -takes a string to append to table
+ */
 const shoppingCartRows = (table) => {
   for (i = 0; i < order.length; i++) {
     const orderI = order[i];
@@ -614,6 +631,7 @@ const shoppingCartRows = (table) => {
       button.className = "removeButton";
       button.attr = i;
       button.value = x;
+      // adds remove button functionality
       button.addEventListener("click", () => {
         const subtotalTd = document.querySelector(".subtotal");
         const totalTd = document.querySelector(".totalPrice");
@@ -632,8 +650,12 @@ const shoppingCartRows = (table) => {
   }
 };
 
-//creates table rows to show subtotal and total
 
+/**
+ * creates table rows to show subtotal and total
+ * @param {string} table -takes the element to be appended to
+ * @param {string} div -takes the div to be appended to
+ */
 const totalRows = (table, div) => {
   const subtotalTr = document.createElement("tr");
   subtotalTr.className = "subtotalTr";
@@ -662,9 +684,10 @@ const totalRows = (table, div) => {
   table.append(subtotalTr, totalTr);
   div.appendChild(table);
 };
-
-
 // creates buttons to add more or proceed to next screen and appends them to the div
+/**
+ * @param {string} div -takes the div to be appended to
+ */
 const tableButtons = (div) => {
   const addMoreBtn = document.createElement("button");
   addMoreBtn.textContent = "Add More!";
@@ -741,7 +764,6 @@ const tipScreen = () => {
   });
 
 };
-
 
 // calculates total with tip
 const tipCalc = () => {

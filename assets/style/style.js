@@ -17,6 +17,10 @@ body.style.color = light;
 // h1s &h2s
 const h1s = document.querySelectorAll("h1");
 const h2s = document.querySelectorAll("h2");
+/**
+ * 
+ * @param {string} hs -what element the function is applied to
+ */
 const h = (hs) => {
   for (let i = 0; i < hs.length; i++) {
     hs[i].style.color = dark;
@@ -39,9 +43,14 @@ for (let i = 0; i < h4s.length; i++) {
   h4s[i].style.color = greenChalk;
   h4s[i].style.fontFamily = headingFont;
 }
+
 // buttons and inputs
 const allButtons = document.querySelectorAll("button");
 const inputSubmits = document.querySelectorAll("input[type='submit']");
+/**
+ * 
+ * @param {array} buttonInput -targets button elements
+ */
 const buttonInputStyle = (buttonInput) => {
   for (let i = 0; i < buttonInput.length; i++) {
     buttonInput[i].style.fontFamily = headingFont;
@@ -98,8 +107,9 @@ const menuPrice = document.querySelectorAll(".price");
 for (let i = 0; i < menuPrice.length; i++) {
   menuPrice[i].style.color = greenChalk;
 }
-// pizza forms
 
+// pizza forms
+// size div
 const sizeDiv = document.querySelectorAll(".size-div");
 for (let i = 0; i < sizeDiv.length; i++) {
   const label = sizeDiv[i].lastChild;
@@ -125,8 +135,8 @@ for (let i = 0; i < toppingDiv.length; i++) {
   }
 }
 
-const addToCart = document.querySelectorAll(".addToCart");
 // changes add to cart submits to green chalk on mouseover/out
+const addToCart = document.querySelectorAll(".addToCart");
 for (let i = 0; i < addToCart.length; i++) {
   buttonInputStyle(addToCart);
   addToCart[i].addEventListener("mouseover", () => {
@@ -147,7 +157,7 @@ for (let i = 0; i < addToCart.length; i++) {
       }
     }
 
-    // changes button hightlight on mouse over
+    // changes button highlight on mouse over
     const checkoutButtons = document.querySelectorAll(".checkout-div button");
     buttonInputStyle(checkoutButtons);
     for (let i = 0; i < checkoutButtons.length; i++) {
@@ -187,6 +197,7 @@ const checkoutStyleDiv = () => {
   const cartButtons = document.querySelectorAll(".cart-btn");
   buttonInputStyle(cartButtons);
 
+  // targets subtotal class
   const subtotalTr = document.querySelector(".subtotal");
   subtotalTr.style.color = greenChalk;
   const totalTr = document.querySelector(".totalPrice");
@@ -251,7 +262,10 @@ const customerInfoDiv = () => {
 };
 
 
-// hover pink
+/**
+ * hover pink
+ * @param {string} element targets the element to changed
+ */
 const hoverPink = (element) => {
   element.addEventListener("mouseover", () => {
     element.style.color = pinkChalk;
@@ -263,7 +277,10 @@ const hoverPink = (element) => {
   });
 };
 
-// hover green
+/**
+ *  hover green
+ * @param {string} element targets the element to changed
+ */
 const hoverGreen = (element) => {
   element.addEventListener("mouseover", () => {
     element.style.color = greenChalk;
@@ -275,6 +292,10 @@ const hoverGreen = (element) => {
   });
 };
 // add white border
+/**
+ * 
+ * @param {string} element -takes an element to add border
+ */
 const addBorder=(element)=>{
   element.style.border=`.25rem solid ${light}`;
   element.style.borderColor=light;  
