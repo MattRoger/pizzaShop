@@ -361,10 +361,11 @@ const pizzaQuantity = () => {
 };
 
 const specialDirections = () => {
-  const input = document.createElement("input");
+  const input = document.createElement("textarea");
   input.type = "textarea";
   input.className = "pizzaSpecialDirections";
   input.name = "specialDirections";
+  input.maxLength="500";
   const label = document.createElement("label");
   label.textContent = "Special Directions: ";
   label.style.display = "block";
@@ -788,6 +789,7 @@ const customerInfo = () => {
   fName.type = "text";
   fName.id = "fName";
   fName.name = "first_name";
+  fName.maxLength="30";
   const lNameLabel = document.createElement("label");
   lNameLabel.textContent = "Last Name: ";
   lNameLabel.for = "fName";
@@ -795,6 +797,7 @@ const customerInfo = () => {
   lName.type = "text";
   lName.id = "lName";
   lName.name = "last";
+  lName.maxLength="30";
   const phoneLabel = document.createElement("label");
   phoneLabel.textContent = "Phone Number: ";
   phoneLabel.for = "phone";
@@ -808,6 +811,7 @@ const customerInfo = () => {
   const email = document.createElement("input");
   email.type = "email";
   email.id = "email";
+  email.maxLength="50";
   email.name = "e-mail";
   fieldSetContact.append(
     heading,

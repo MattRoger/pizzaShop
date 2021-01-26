@@ -109,6 +109,9 @@ form input[type="checkbox"] {
   width: 1.5rem;
   height: 1.5rem;
 }
+textarea{
+  resize: none;
+}
 
 .menu-item {
   width: 82vw;
@@ -300,13 +303,14 @@ figcaption{
   }
   .pizzaQuantity {
     height: 3rem;
-    font-size: 3rem;
+    font-size: 1.5rem;
     width: 80%;
   }
   .pizzaSpecialDirections {
-    font-size: 3rem;
-    height: 6rem;
+    font-size: 1.5rem;
+    height: 1.5rem;
     width: 80%;
+    height: 150px;
   }
   .addToCart,
   input[type="submit"] {

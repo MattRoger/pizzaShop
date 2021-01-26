@@ -250,6 +250,7 @@ const customerInfoDiv = () => {
   hoverGreen(buttonSubmit[0])
 };
 
+
 // hover pink
 const hoverPink = (element) => {
   element.addEventListener("mouseover", () => {
@@ -276,6 +277,7 @@ const hoverGreen = (element) => {
 // add white border
 const addBorder=(element)=>{
   element.style.border=`.25rem solid ${light}`;
-  element.style.borderColor=light;
-
+  element.style.borderColor=light;  
 }
+const contactSubmit=document.getElementById("contactSubmit");
+hoverGreen(contactSubmit);
