@@ -22,6 +22,8 @@ Completed
 
  -[x] minor fixes need
 
+ -[ ] add some animations
+
  * -[x] in main links, US is capitalized, one has a >
  * -[x] pizza size say larger pizza instead of large
  * -[x] pizza price is not rounding to two decimals
@@ -29,6 +31,7 @@ Completed
  * -[x] make buttons link to top of page
  * -[x] hide pizza submit form
  * -[x] add more from checkout doesnt show menu
+ * -[ ] change cursor on nav links
 
 ## Tech/framework used
 * HTML
@@ -41,7 +44,7 @@ Completed
 ## Code style
 Vanilla JavaScript
 
-## How to use?
+## How to use?cd
 To choose what to order, select menu, and then if you want an appetizer, a pizza, an entry, or a dessert.
 
 ## Installation

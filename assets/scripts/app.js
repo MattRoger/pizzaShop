@@ -207,7 +207,7 @@ const renderMenu = (menuList, id, form) => {
     price.className = "price";
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.name = "appCheckbox";
+    checkbox.name = "orderCheckbox";
     checkbox.className = "checkbox";
     checkbox.id = menuList[i].name;
     checkbox.value = menuList[i].price;

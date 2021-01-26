@@ -70,6 +70,7 @@ for (let i = 0; i < navLinks.length; i++) {
   navLinks[i].style.color = light;
   navLinks[i].style.fontFamily = headingFont;
   navLinks[i].style.backgroundColor = dark;
+  navLinks[i].style.cursor="pointer";
 
 }
 for (let i = 0; i < navLink.length; i++) {
@@ -302,3 +303,32 @@ const addBorder=(element)=>{
 }
 const contactSubmit=document.getElementById("contactSubmit");
 hoverGreen(contactSubmit);
+
+const allCheckboxes= document.querySelectorAll("input[name='orderCheckbox']");
+for(let i=0; i < allCheckboxes.length; i++){
+  allCheckboxes[i].addEventListener("change",()=>{
+    const container =allCheckboxes[i].parentElement
+    if(allCheckboxes[i].checked==true){
+      container.style.borderColor=greenChalk;
+      container.animate([
+        // keyframes
+         { transform: 'scale(1,1) translateY(0)'},
+         { transform:' scale(1.1,.9)   translateY(0)'},
+         { transform: 'scale(.9,1.1)   translateY(-50px)'},
+         { transform: 'scale(1.05,.95) translateY(0)'},
+         { transform: 'scale(1,1)      translateY(-7px)'},
+         { transform: 'scale(1,1)      translateY(0)' },
+         { transform: 'scale(1,1)      translateY(0)' }
+      ], {
+        // timing options
+        duration: 1000,
+        iterations: 1
+      });
+      console.log(allCheckboxes[i])
+    }else{
+      container.style.borderColor=light;
+    }
+
+  })
+
+}
