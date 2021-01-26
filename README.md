@@ -13,7 +13,7 @@ Completed
  * -[x] remove item from cart
  * -[x] create checkout
  * -[x] add cart Icon
- #### -[x] minor fixes need
+ #### * -[x] minor fixes need
  * -[x] in main links, US is capitalized, one has a >
  * -[x] pizza size say larger pizza instead of large
  * -[x] pizza price is not rounding to two decimals
@@ -30,6 +30,7 @@ Completed
 * Users can remove items and see their totals change.
 * Users can add tip and see total change.
 * Cart icon lights up if items are in cart. clicking on icon brings user to shopping cart.
+![Checkout screen and tip screen](https://github.com/MattRoger/screenshots/blob/master/NY%20Pizzeria.gif?raw=true)
 ## Code style
 Vanilla JavaScript
 
