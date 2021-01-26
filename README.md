@@ -51,5 +51,3 @@ To choose what to order, select menu, and then if you want an appetizer, a pizza
   * :e-mail: mattroger.webdev@gmail.com
   * :man_office_worker: www.linkedin.com/in/matt-roger/
 
-
-## License
