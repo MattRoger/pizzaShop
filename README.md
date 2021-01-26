@@ -3,7 +3,8 @@
 ## Motivation
 A web app to order pizza, using vanilla js
 ## Build Status
-no
+Completed
+
  ### To Do
  -[x] create layout
 
@@ -19,38 +20,34 @@ no
 
  -[x] add cart Icon
 
- -[ ] add drinks
-
- -[ ] verify user is in delivery range
-
  -[x] minor fixes need
 
- **-[x] in main links, US is capitalized, one has a >
- **-[x] pizza size say larger pizza instead of large
- **-[x] pizza price is not rounding to two decimals
- **-[x] subtotal price is not rounding to two decimals
- **-[ ] make buttons link to top of page
- **-[x] hide pizza submit form
- **-[x] add more from checkout doesnt show menu
+ * -[x] in main links, US is capitalized, one has a >
+ * -[x] pizza size say larger pizza instead of large
+ * -[x] pizza price is not rounding to two decimals
+ * -[x] subtotal price is not rounding to two decimals
+ * -[x] make buttons link to top of page
+ * -[x] hide pizza submit form
+ * -[x] add more from checkout doesnt show menu
 
 ## Tech/framework used
-
+* HTML
+* CSS
+* JavaScript
 ## Features
-
+* Users can remove items and see their totals change.
+* Users can add tip and see total change.
+* Cart icon lights up if items are in cart. clicking on icon brings user to shopping cart.
 ## Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex
+Vanilla JavaScript
 
+## How to use?
+To choose what to order, select menu, and then if you want an appetizer, a pizza, an entry, or a dessert.
 
 ## Installation
 * :trident: Fork it
 * :sheep: Clone it
 
-
-## API Reference
-
-## Tests
-
-## How to use?
 
 
 ## Credits / Contact information
