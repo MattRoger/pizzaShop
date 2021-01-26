@@ -1,7 +1,9 @@
-# pizzaShop
+# Pizza Shop
+A JavasScript based website for a pizzeria
 
 ## Motivation
-A web app to order pizza, using vanilla js
+A web app to order pizza, focusing on using vanilla js. 
+
 ## Build Status
 Completed
 
