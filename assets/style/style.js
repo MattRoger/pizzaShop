@@ -72,16 +72,19 @@ for (let i = 0; i < navLink.length; i++) {
   });
 }
 
-// menu section head
-const menuSectionHead = document.querySelector(".section-head");
-menuSectionHead.style.textAlign="center"
-const menuSectionHeadFirst = menuSectionHead.firstChild;
-menuSectionHeadFirst.style.fontSize = "120%";
-menuSectionHeadFirst.style.color = greenChalk;
-const menuSectionHeadLast = menuSectionHead.lastChild;
-menuSectionHeadLast.style.textDecoration = "underline";
-menuSectionHeadLast.style.textDecorationColor = greenChalk;
-menuSectionHeadLast.style.color = pinkChalk;
+// section heads
+const sectionHead = document.querySelectorAll(".section-head");
+for(let i=0; i <sectionHead.length;i++){
+  sectionHead[i].style.textAlign="center";
+  const sectionHeadFirst= sectionHead[i].firstChild;
+  sectionHeadFirst.style.fontSize = "120%";
+  sectionHeadFirst.style.color = greenChalk;
+  const sectionHeadLast = sectionHead[i].lastChild;
+  sectionHeadLast.style.textDecoration = "underline";
+  sectionHeadLast.style.textDecorationColor = greenChalk;
+  sectionHeadLast.style.color = pinkChalk;
+
+}
 
 // menu items
 // gives menu items there text and border colors
