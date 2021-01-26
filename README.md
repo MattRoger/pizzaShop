@@ -15,7 +15,7 @@ Completed
  * -[x] remove item from cart
  * -[x] create checkout
  * -[x] add cart Icon
- #### * -[x] minor fixes need
+ ####  Minor fixes need
  * -[x] in main links, US is capitalized, one has a >
  * -[x] pizza size say larger pizza instead of large
  * -[x] pizza price is not rounding to two decimals
